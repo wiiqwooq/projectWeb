@@ -19,5 +19,20 @@
               </div>
             </div>
           </nav>
+        <form action="post" action="/" enctype="multipart/form-data" >
+            {{ csrf_field() }}
+            <h1>Create Trip</h1>
+            <div>
+              <span>Trip Name : </span>
+              <input type="text" name="trip_name" placeholder="Enter trip">
+            </div>
+            <div>
+              <span>Location : </span>
+              <input type="text" name="location" placeholder="Enter location">
+            </div>
+            <div>
+                <input type="submit"></button>
+              </div>
+          </form>
     </body>
 </html>

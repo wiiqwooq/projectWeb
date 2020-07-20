@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+//Route::post('/create', 'tripController@store');
+Route::post('/create', function(){
+    return "ttt";
+});
