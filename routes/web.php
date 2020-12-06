@@ -14,9 +14,32 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('users.users');
 });
-//Route::post('/create', 'tripController@store');
-Route::post('/create', function(){
-    return "ttt";
+
+Route::get('/attractions', function () {
+    return view('attractions.add_attraction');
 });
+Route::get('/users', function () {
+    return view('users.users');
+});
+Route::resource('admins', 'adminsController');
+Route::get('/attractions', function () {
+    return view('attractions.attractions');
+});
+Route::get('/trips', function () {
+    return view('trips.trips');
+});
+Route::get('/confirm', function () {
+    return view('comfirm.confirm');
+});
+Route::get('/history', function () {
+    return view('history.history');
+});
+Route::get('/reports', function () {
+    return view('repotrs.report');
+});
+Route::get('/create_admins', function () {
+    return view('Admins.create_admins');
+});
+
