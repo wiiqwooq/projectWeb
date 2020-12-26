@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\attractionsController;
 use Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
+use App\Image_Tourist_Attraction;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,30 +19,32 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('users.users');
 });
-
-Route::get('/attractions', function () {
-    return view('attractions.add_attraction');
-});
-Route::get('/users', function () {
-    return view('users.users');
-});
 Route::resource('admins', 'adminsController');
-Route::get('/attractions', function () {
-    return view('attractions.attractions');
+Route::resource('attractions', 'attractionsController');
+Route::delete('deleteimg/{id}', function ($id) {
+    Image_Tourist_Attraction::find($id)->delete();
+    return back();
 });
-Route::get('/trips', function () {
-    return view('trips.trips');
-});
+Route::resource('trips', 'tripsController');
+
+
+
 Route::get('/confirm', function () {
     return view('comfirm.confirm');
 });
 Route::get('/history', function () {
     return view('history.history');
 });
-Route::get('/reports', function () {
-    return view('repotrs.report');
+Route::get('/testCarbon',function(){
+    Carbon::now();
+    $str = "";
+    for($i=0;$i<5;$i++) {
+        $str .= time() . "<br>";
+    }
+    return $str;
 });
-Route::get('/create_admins', function () {
-    return view('Admins.create_admins');
+
+Route::get('/testaddrow',function(){
+    return view('Trips.test_add_row');
 });
 

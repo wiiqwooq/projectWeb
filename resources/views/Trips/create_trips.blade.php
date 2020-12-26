@@ -58,7 +58,7 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
 
-                <p class="centered"><a href="profile.html"><img src="/assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+                <p class="centered"><a href="profile.html"><img src="../assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
               	  <h5 class="centered">Rosy White</h5>
 
                     <li class="mt">
@@ -71,7 +71,7 @@
                     </li>
 
                     <li class="sub-menu">
-                        <a class="active" href="/admins" >
+                        <a href="/admins" >
                           <i> <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
                             </svg></i>
@@ -90,7 +90,7 @@
                     </li>
 
                     <li class="sub-menu">
-                        <a href="/trips" >
+                        <a class="active" href="/trips" >
                             <i><svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-truck" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd" d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
                             </svg></i>
@@ -132,58 +132,188 @@
       </aside>
     </div>
       <!--sidebar end-->
+      var i = 0;
       <section id="main-content">
         <section class="wrapper">
-            <h3><i class="fa fa-angle-right"></i>Manage Admins
-                  <ul class="nav pull-right top-menu">
-                  <a href="{{ route('admins.create')}}">
-                        <button type="button" class="btn btn-round btn-success btn-sm"><i class="fa fa-plus"></i> Add admin</button>
+            <h3><i class="fa fa-angle-right"></i>Create Trips
+                <ul class="nav pull-right top-menu">
+                    <a href="/attractions">
+                        <button type="button" class="btn btn-round btn-theme02 btn-sm"><i class="fa fa-angle-left"></i> Back</button>
                     </a>
                 </ul>
             </h3>
-              <div class="row">
-                    <div class="col-md-12">
-                          <div class="content-panel">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>Admin_id</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Phone</th>
-                                    <th>Username</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($admins as $admin)
-                                <tr>
-                                    <td>{{$admin->admin_id}}</td>
-                                    <td>{{$admin->fname}}</td>
-                                    <td>{{$admin->lname}}</td>
-                                    <td>{{$admin->phone}}</td>
-                                    <td>{{$admin->username}}</td>
-                                    <td>{{$admin->admin_status}}</td>
-                                    <td>
-                                        <a href="{{route('admins.edit',[$admin->admin_id])}}"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
-                                        {{-- <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash-o"></i></button> --}}
-                                    </td>
-                                    <td>
-                                    <form class="form-inline" method="post" action="{{route('admins.destroy',[$admin->admin_id])}}" enctype="multipart/form-data">
-                                        {{ csrf_field() }}
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                                    </form>
-                                </td>
-                                </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div><! --/content-panel -->
+            <div class="col-lg-12">
+            <div class="form-panel">
+            <form class="form-horizontal style-form" method="post" action="{{route('trips.store')}}" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Trips Name: </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control round-form" name="trips_name">
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Province:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control round-form" name="province">
+                            <option>Amnat Charoen</option>
+                            <option>Ang Thong</option>
+                            <option>Bangkok</option>
+                            <option>Bueng Kan</option>
+                            <option>Buriram</option>
+                            <option>Chachoengsao</option>
+                            <option>Chai Nat</option>
+                            <option>Chaiyaphum</option>
+                            <option>Chanthaburi</option>
+                            <option>Chiang Mai</option>
+                            <option>Chiang Rai</option>
+                            <option>Chonburi</option>
+                            <option>Chumphon</option>
+                            <option>Kalasin</option>
+                            <option>Kamphaeng Phet</option>
+                            <option>Kanchanaburi</option>
+                            <option>Khon Kaen</option>
+                            <option>Krabi</option>
+                            <option>Lampang</option>
+                            <option>Lamphun</option>
+                            <option>Loei</option>
+                            <option>Lopburi</option>
+                            <option>Mae Hong Son</option>
+                            <option>Maha Sarakham</option>
+                            <option>Mukdahan</option>
+                            <option>Nakhon Nayok</option>
+                            <option>Nakhon Phanom</option>
+                            <option>Nakhon Ratchasima</option>
+                            <option>Nakhon Sawan</option>
+                            <option>Nakhon Si Thammarat</option>
+                            <option>Nan</option>
+                            <option>Narathiwat</option>
+                            <option>Nong Bua Lamphu</option>
+                            <option>Nong Khai</option>
+                            <option>Nonthaburi</option>
+                            <option>Pathum Thani</option>
+                            <option>Pattani</option>
+                            <option>Phang Nga</option>
+                            <option>Phatthalung</option>
+                            <option>Phayao</option>
+                            <option>Phetchabun</option>
+                            <option>Phetchaburi</option>
+                            <option>Phichit</option>
+                            <option>Phitsanulok</option>
+                            <option>Phra Nakhin Si Ayutthaya</option>
+                            <option>Phrae</option>
+                            <option>Phuket</option>
+                            <option>Prachinburi</option>
+                            <option>Prachuap Khiri Khan</option>
+                            <option>Ranong</option>
+                            <option>Ratchaburi</option>
+                            <option>Rayong</option>
+                            <option>Roi Et</option>
+                            <option>Sa Kaeo</option>
+                            <option>Sakon Nakorn</option>
+                            <option>Samut Prakan</option>
+                            <option>Samut Sakhon</option>
+                            <option>Samut Songkhram</option>
+                            <option>Saraburi</option>
+                            <option>Satun</option>
+                            <option>Sing Buri</option>
+                            <option>Sisaket</option>
+                            <option>Songkhla</option>
+                            <option>Sukhothai</option>
+                            <option>Suphan Buri</option>
+                            <option>Surat Thani</option>
+                            <option>Surin</option>
+                            <option>Tak</option>
+                            <option>Trang</option>
+                            <option>Trat</option>
+                            <option>Ubon Ratchathani</option>
+                            <option>Udon Thani</option>
+                            <option>Uthai Thani</option>
+                            <option>Uttaradit</option>
+                            <option>Yala</option>
+                            <option>Yasothon</option>
+                          </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Start Date:</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control round-form" name="start_date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">End Date:</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control round-form" name="end_date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Amount:</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control round-form" name="amount">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Price:</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control round-form" name="price">
+                    </div>
+                </div>
+                <div class="form-group" id="form-line-trips">
+                    <label class="col-sm-2 col-sm-2 control-label">Attractions:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control round-form" name="tourist_id[i]">
+                            @foreach ($atts as $att)
+                            <option value="{{$att->tourist_id}}">{{$att->tourist_name}}</option>
+                            @endforeach
+                          </select>
+                    </div>
+                    <label class="col-sm-2 col-sm-2 control-label">Date:</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control round-form" name="date[i]">
+                    </div>
+                    <label class="col-sm-2 col-sm-2 control-label">Time:</label>
+                    <div class="col-sm-10">
+                        <input type="time" class="form-control round-form" name="time[i]">
+                    </div>
+                    <br>
+                    <div class="col-sm-10">
+                    <button class="btn btn-round btn-theme04 btn-sm" id="add-more">add more</button>
+                    </div>
+                </div>
+                <center>
+                        <button type="submit" class="btn btn-theme03">Create</button>
+                </center>
+            </form>
+            </div>
+            </div>
         </section>
+        <script>
+            $(document).ready(function(){
+                var i = 0;
+                $('#add-more').click(function(){
+                    $('#form-line-trips').append("<div class=\"form-group\">"+
+                        "<label class=\"col-sm-2 col-sm-2 control-label\">Attractions:</label>"+
+                        "<div class=\"col-sm-10\">"+
+                        "<select class=\"form-control round-form\" name=\"tourist_id[" + i + "] \">"+
+                        "@foreach ($atts as $att)"+
+                        "<option value=\"{{$att->tourist_id}}\">{{$att->tourist_name}}</option>"+
+                        "@endforeach"+
+                        "</select>"+
+                        "<label class=\"col-sm-2 col-sm-2 control-label\">Date:</label>"+
+                        "<div class=\"col-sm-10\">"+
+                        " <input type=\"date\" class=\"form-control round-form\" name=\"date[" + i + "]\">"+
+                        "</div>"+
+                        "<label class=\"col-sm-2 col-sm-2 control-label\">Time:</label>"+
+                        "<div class=\"col-sm-10\">"+
+                        " <input type=\"time\" class=\"form-control round-form\" name=\"time[" + i + "] \">"+
+                        "</div>"+
+                        "</div>"+
+                        "</div>");
+                    i++;
+                });
+            });
+        </script>
       </section>
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/jquery-1.8.3.min.js"></script>

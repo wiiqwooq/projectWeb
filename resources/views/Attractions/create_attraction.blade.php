@@ -71,7 +71,7 @@
                     </li>
 
                     <li class="sub-menu">
-                        <a class="active" href="/admins" >
+                        <a href="/admins" >
                           <i> <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
                             </svg></i>
@@ -80,7 +80,7 @@
                     </li>
 
                     <li class="sub-menu">
-                        <a href="/attractions">
+                        <a class="active" href="/attractions">
                             <i><svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-geo-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd" d="M12.166 8.94C12.696 7.867 13 6.862 13 6A5 5 0 0 0 3 6c0 .862.305 1.867.834 2.94.524 1.062 1.234 2.12 1.96 3.07A31.481 31.481 0 0 0 8 14.58l.208-.22a31.493 31.493 0 0 0 1.998-2.35c.726-.95 1.436-2.008 1.96-3.07zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
                               <path fill-rule="evenodd" d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -134,57 +134,122 @@
       <!--sidebar end-->
       <section id="main-content">
         <section class="wrapper">
-            <h3><i class="fa fa-angle-right"></i>Manage Admins
-                  <ul class="nav pull-right top-menu">
-                  <a href="{{ route('admins.create')}}">
-                        <button type="button" class="btn btn-round btn-success btn-sm"><i class="fa fa-plus"></i> Add admin</button>
+            <h3><i class="fa fa-angle-right"></i>Create Attractions
+                <ul class="nav pull-right top-menu">
+                    <a href="/attractions">
+                        <button type="button" class="btn btn-round btn-theme02 btn-sm"><i class="fa fa-angle-left"></i> Back</button>
                     </a>
                 </ul>
             </h3>
-              <div class="row">
-                    <div class="col-md-12">
-                          <div class="content-panel">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>Admin_id</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Phone</th>
-                                    <th>Username</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($admins as $admin)
-                                <tr>
-                                    <td>{{$admin->admin_id}}</td>
-                                    <td>{{$admin->fname}}</td>
-                                    <td>{{$admin->lname}}</td>
-                                    <td>{{$admin->phone}}</td>
-                                    <td>{{$admin->username}}</td>
-                                    <td>{{$admin->admin_status}}</td>
-                                    <td>
-                                        <a href="{{route('admins.edit',[$admin->admin_id])}}"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
-                                        {{-- <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash-o"></i></button> --}}
-                                    </td>
-                                    <td>
-                                    <form class="form-inline" method="post" action="{{route('admins.destroy',[$admin->admin_id])}}" enctype="multipart/form-data">
-                                        {{ csrf_field() }}
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                                    </form>
-                                </td>
-                                </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div><! --/content-panel -->
+            <div class="col-lg-12">
+            <div class="form-panel">
+            <form class="form-horizontal style-form" method="post" action="{{route('attractions.store')}}" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Tourist Name: </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control round-form" name="tourist_name">
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Position:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control round-form" name="position">
+                            <option>Amnat Charoen</option>
+                            <option>Ang Thong</option>
+                            <option>Bangkok</option>
+                            <option>Bueng Kan</option>
+                            <option>Buriram</option>
+                            <option>Chachoengsao</option>
+                            <option>Chai Nat</option>
+                            <option>Chaiyaphum</option>
+                            <option>Chanthaburi</option>
+                            <option>Chiang Mai</option>
+                            <option>Chiang Rai</option>
+                            <option>Chonburi</option>
+                            <option>Chumphon</option>
+                            <option>Kalasin</option>
+                            <option>Kamphaeng Phet</option>
+                            <option>Kanchanaburi</option>
+                            <option>Khon Kaen</option>
+                            <option>Krabi</option>
+                            <option>Lampang</option>
+                            <option>Lamphun</option>
+                            <option>Loei</option>
+                            <option>Lopburi</option>
+                            <option>Mae Hong Son</option>
+                            <option>Maha Sarakham</option>
+                            <option>Mukdahan</option>
+                            <option>Nakhon Nayok</option>
+                            <option>Nakhon Phanom</option>
+                            <option>Nakhon Ratchasima</option>
+                            <option>Nakhon Sawan</option>
+                            <option>Nakhon Si Thammarat</option>
+                            <option>Nan</option>
+                            <option>Narathiwat</option>
+                            <option>Nong Bua Lamphu</option>
+                            <option>Nong Khai</option>
+                            <option>Nonthaburi</option>
+                            <option>Pathum Thani</option>
+                            <option>Pattani</option>
+                            <option>Phang Nga</option>
+                            <option>Phatthalung</option>
+                            <option>Phayao</option>
+                            <option>Phetchabun</option>
+                            <option>Phetchaburi</option>
+                            <option>Phichit</option>
+                            <option>Phitsanulok</option>
+                            <option>Phra Nakhin Si Ayutthaya</option>
+                            <option>Phrae</option>
+                            <option>Phuket</option>
+                            <option>Prachinburi</option>
+                            <option>Prachuap Khiri Khan</option>
+                            <option>Ranong</option>
+                            <option>Ratchaburi</option>
+                            <option>Rayong</option>
+                            <option>Roi Et</option>
+                            <option>Sa Kaeo</option>
+                            <option>Sakon Nakorn</option>
+                            <option>Samut Prakan</option>
+                            <option>Samut Sakhon</option>
+                            <option>Samut Songkhram</option>
+                            <option>Saraburi</option>
+                            <option>Satun</option>
+                            <option>Sing Buri</option>
+                            <option>Sisaket</option>
+                            <option>Songkhla</option>
+                            <option>Sukhothai</option>
+                            <option>Suphan Buri</option>
+                            <option>Surat Thani</option>
+                            <option>Surin</option>
+                            <option>Tak</option>
+                            <option>Trang</option>
+                            <option>Trat</option>
+                            <option>Ubon Ratchathani</option>
+                            <option>Udon Thani</option>
+                            <option>Uthai Thani</option>
+                            <option>Uttaradit</option>
+                            <option>Yala</option>
+                            <option>Yasothon</option>
+                          </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Image:</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control round-form" name="image_name[]" multiple>
+                    </div>
+                </div>
+
+                <center>
+                        <button type="submit" class="btn btn-theme03">Create</button>
+                </center>
+            </form>
+            </div>
+            </div>
         </section>
       </section>
+
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/jquery-1.8.3.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>

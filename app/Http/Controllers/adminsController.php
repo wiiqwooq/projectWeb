@@ -11,12 +11,11 @@ class adminsController extends Controller
     public function index()
     {
         $admins = Admins::all();
-
         return view('Admins.admins', compact('admins'));
     }
     public function create()
     {
-        //
+        return view('Admins.create_admins',);
     }
     public function store(Request $request)
     {
@@ -26,7 +25,7 @@ class adminsController extends Controller
     }
     public function show($id)
     {
-        
+        //
     }
     public function edit($id)
     {
