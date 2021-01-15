@@ -260,25 +260,25 @@
                     </div>
                 </div>
                 <div class="form-group" id="form-line-trips">
-                    <label class="col-sm-2 col-sm-2 control-label">Attractions:</label>
+                    <div class="col-sm-12">
+                        <button class="btn btn-round btn-theme04 btn-sm" id="add-more" type="button">add attractions</button>
+                    </div>
+                    <label class="col-sm-2 col-sm-2 control-label">Attractions 1:</label>
                     <div class="col-sm-10">
-                        <select class="form-control round-form" name="tourist_id[i]">
+                        <select class="form-control round-form" name="tourist_id[0]">
                             @foreach ($atts as $att)
                             <option value="{{$att->tourist_id}}">{{$att->tourist_name}}</option>
                             @endforeach
                           </select>
                     </div>
-                    <label class="col-sm-2 col-sm-2 control-label">Date:</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Date 1:</label>
                     <div class="col-sm-10">
-                        <input type="date" class="form-control round-form" name="date[i]">
+                        <input type="date" class="form-control round-form" name="date[0]">
                     </div>
-                    <label class="col-sm-2 col-sm-2 control-label">Time:</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Time 1:</label>
                     <div class="col-sm-10">
-                        <input type="time" class="form-control round-form" name="time[i]">
-                    </div>
-                    <br>
-                    <div class="col-sm-10">
-                    <button class="btn btn-round btn-theme04 btn-sm" id="add-more">add more</button>
+                        <input type="time" class="form-control round-form" name="time[0]">
+                        <br>
                     </div>
                 </div>
                 <center>
@@ -288,47 +288,46 @@
             </div>
             </div>
         </section>
-        <script>
-            $(document).ready(function(){
-                var i = 0;
-                $('#add-more').click(function(){
-                    $('#form-line-trips').append("<div class=\"form-group\">"+
-                        "<label class=\"col-sm-2 col-sm-2 control-label\">Attractions:</label>"+
-                        "<div class=\"col-sm-10\">"+
-                        "<select class=\"form-control round-form\" name=\"tourist_id[" + i + "] \">"+
-                        "@foreach ($atts as $att)"+
-                        "<option value=\"{{$att->tourist_id}}\">{{$att->tourist_name}}</option>"+
-                        "@endforeach"+
-                        "</select>"+
-                        "<label class=\"col-sm-2 col-sm-2 control-label\">Date:</label>"+
-                        "<div class=\"col-sm-10\">"+
-                        " <input type=\"date\" class=\"form-control round-form\" name=\"date[" + i + "]\">"+
-                        "</div>"+
-                        "<label class=\"col-sm-2 col-sm-2 control-label\">Time:</label>"+
-                        "<div class=\"col-sm-10\">"+
-                        " <input type=\"time\" class=\"form-control round-form\" name=\"time[" + i + "] \">"+
-                        "</div>"+
-                        "</div>"+
-                        "</div>");
-                    i++;
-                });
-            });
-        </script>
+
       </section>
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/jquery-1.8.3.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="assets/js/jquery.scrollTo.min.js"></script>
-    <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
-    <script src="assets/js/jquery.sparkline.js"></script>
+    <script src="{{asset('assets/js/jquery.js')}}"></script>
+    <script src="{{asset('assets/js/jquery-1.8.3.min.js')}}"></script>
+    <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+    <script class="include" type="text/javascript" src="{{asset('assets/js/jquery.dcjqaccordion.2.7.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.scrollTo.min.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.nicescroll.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/js/jquery.sparkline.js')}}"></script>
 
 
     <!--common script for all pages-->
-    <script src="assets/js/common-scripts.js"></script>
+    <script src="{{asset('assets/js/common-scripts.js')}}"></script>
 
-    <script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
-    <script type="text/javascript" src="assets/js/gritter-conf.js"></script>
-
+    <script type="text/javascript" src="{{asset('assets/js/gritter/js/jquery.gritter.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/js/gritter-conf.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            var i = 1;
+            $('#add-more').click(function(){
+                $('#form-line-trips').append("<label class=\"col-sm-2 col-sm-2 control-label\">Attractions "+(i+1)+":</label>"+
+                    "<div class=\"col-sm-10\">"+
+                    "<select class=\"form-control round-form\" name=\"tourist_id[" + i + "] \">"+
+                    "@foreach ($atts as $att)"+
+                    "<option value=\"{{$att->tourist_id}}\">{{$att->tourist_name}}</option>"+
+                    "@endforeach"+
+                    "</select>"+
+                    "</div>"+
+                    "<label class=\"col-sm-2 col-sm-2 control-label\">Date "+(i+1)+":</label>"+
+                    "<div class=\"col-sm-10\">"+
+                    " <input type=\"date\" class=\"form-control round-form\" name=\"date[" + i + "]\">"+
+                    "</div>"+
+                    "<label class=\"col-sm-2 col-sm-2 control-label\">Time "+(i+1)+":</label>"+
+                    "<div class=\"col-sm-10\">"+
+                    " <input type=\"time\" class=\"form-control round-form\" name=\"time[" + i + "] \">"+
+                    "<br>"+
+                    "</div>");
+                i++;
+            });
+        });
+    </script>
   </body>
 </html>

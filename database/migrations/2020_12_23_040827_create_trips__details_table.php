@@ -15,7 +15,7 @@ class CreateTripsDetailsTable extends Migration
     {
         Schema::create('trips_details', function (Blueprint $table) {
             $table->bigIncrements("detail_id");
-            $table->dateTime("date");
+            $table->date("date");
             $table->time("time");
             $table->unsignedBigInteger('trips_id');
             $table->foreign('trips_id')->references('trips_id')->on('trips')->onDelete('cascade');
