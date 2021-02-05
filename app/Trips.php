@@ -11,7 +11,7 @@ class Trips extends Model
 
     protected $fillable = [
         'trips_name',
-        'province',
+        'province_id',
         'start_date',
         'end_date',
         'amount',

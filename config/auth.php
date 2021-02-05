@@ -13,9 +13,10 @@ return [
     |
     */
 
+
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'admins',
+        'password' => 'admins',
     ],
 
     /*
@@ -36,15 +37,15 @@ return [
     */
 
     'guards' => [
+        'admins' => [
+            //'redirectTo'=> '/users',
+            'driver' => 'session',
+            'provider' => 'admins',
+            //'hash' => false,
+        ],
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
-        ],
-
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
+            'provider' => 'admins',
         ],
     ],
 
@@ -66,10 +67,23 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'admins' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Admins::class,
+
         ],
+    'passwords' => [
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'admins',
+            'expire' => 60,
+            ],
+        ],
+        // 'admins' => [
+        //     'provider' => 'admins',
+        //     'table' => 'admins',
+        //     'expire' => 60,
+        // ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -92,14 +106,14 @@ return [
     |
     */
 
-    'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-    ],
+    // 'passwords' => [
+    //     'users' => [
+    //         'provider' => 'users',
+    //         'table' => 'password_resets',
+    //         'expire' => 60,
+    //         'throttle' => 60,
+    //     ],
+    // ],
 
     /*
     |--------------------------------------------------------------------------
@@ -112,6 +126,6 @@ return [
     |
     */
 
-    'password_timeout' => 10800,
+    // 'password_timeout' => 10800,
 
 ];

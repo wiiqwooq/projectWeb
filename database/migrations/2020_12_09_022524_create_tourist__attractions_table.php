@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateTouristAttractionsTable extends Migration
 {
@@ -16,7 +17,8 @@ class CreateTouristAttractionsTable extends Migration
         Schema::create('tourist_attractions', function (Blueprint $table) {
             $table->bigIncrements("tourist_id");
             $table->String("tourist_name",255);
-            $table->String("position",255);
+            $table->unsignedBigInteger('province_id');
+            $table->foreign('province_id')->references('province_id')->on('provinces')->onDelete('cascade');
             $table->String("tourist_status",40)->default("Available");
             $table->timestamps();
         });
@@ -29,6 +31,9 @@ class CreateTouristAttractionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tourist__attractions');
+
+        Schema::dropIfExists('image_tourist_attractions');
+        Schema::dropIfExists('trips_details');
+        Schema::dropIfExists('tourist_attractions');
     }
 }

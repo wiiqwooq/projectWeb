@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateTripsTable extends Migration
 {
@@ -16,12 +17,13 @@ class CreateTripsTable extends Migration
         Schema::create('trips', function (Blueprint $table) {
             $table->bigIncrements("trips_id");
             $table->String("trips_name",255);
-            $table->String("province",255);
+            $table->unsignedBigInteger('province_id');
+            $table->foreign('province_id')->references('province_id')->on('provinces')->onDelete('cascade');
             $table->date("start_date");
             $table->date("end_date");
             $table->integer("amount");
             $table->integer("price");
-            $table->String("trips_status")->default("Available");
+            $table->String("trips_status",40)->default("Available");
             $table->timestamps();
         });
     }
@@ -33,6 +35,8 @@ class CreateTripsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('trips_details');
+        Schema::dropIfExists('booking_trips');
         Schema::dropIfExists('trips');
     }
 }

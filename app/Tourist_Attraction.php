@@ -11,7 +11,7 @@ class Tourist_Attraction extends Model
 
     protected $fillable = [
         'tourist_name',
-        'position',
+        'province_id',
         'tourist_status',
     ];
     public function Imageatts()

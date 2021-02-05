@@ -8,30 +8,46 @@ use Illuminate\Support\Facades\DB;
 
 class adminsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('adminOnly');
+    }
+
     public function index()
     {
         $admins = Admins::all();
         return view('Admins.admins', compact('admins'));
     }
+
     public function create()
     {
         return view('Admins.create_admins',);
     }
+
     public function store(Request $request)
     {
-        $post=$request->all();
-        Admins::create($post);
+        Admins::create([
+            'fname' => $request->fname,
+            'lname' => $request->lname,
+            'phone' =>  $request->phone,
+            'username'=>  $request->username,
+            'password' => bcrypt($request->password),
+            'admin_status' => "Enable"
+        ]);
         return view('Admins.create_admins');
     }
+
     public function show($id)
     {
         //
     }
+
     public function edit($id)
     {
         $admin = Admins::find($id);
         return view('Admins.edit_admins',compact('admin'));
     }
+
     public function update(Request $request, $id)
     {
         $update=Admins::findorFail($id);
@@ -39,6 +55,7 @@ class adminsController extends Controller
 
         return redirect('/admins');
     }
+
     public function destroy($id)
     {
         Admins::find($id)->delete();

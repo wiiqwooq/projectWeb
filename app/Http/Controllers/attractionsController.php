@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Tourist_Attraction;
 use App\Image_Tourist_Attraction;
+use App\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -12,13 +13,14 @@ class attractionsController extends Controller
 {
     public function index()
     {
-        $att = Tourist_Attraction::all();
+        $att = Tourist_Attraction::join('provinces','tourist_attractions.province_id','=','provinces.province_id')->get();
         return view('Attractions.attractions', compact('att'));
     }
 
     public function create()
     {
-        return view('Attractions.create_attraction');
+        $pro = Province::all();
+        return view('Attractions.create_attraction',compact('pro'));
     }
 
     public function store(Request $request)
@@ -38,7 +40,7 @@ class attractionsController extends Controller
                 $img->save();
             }
         }
-       return view('Attractions.create_attraction');
+       return back();
     }
 
     public function show($id)
@@ -78,6 +80,12 @@ class attractionsController extends Controller
     {
         Tourist_Attraction::find($id)->delete();
         return redirect("/attractions");
+    }
+
+    public function destroyImage($id)
+    {
+        Image_Tourist_Attraction::find($id)->delete();
+        return back();
     }
 
 }

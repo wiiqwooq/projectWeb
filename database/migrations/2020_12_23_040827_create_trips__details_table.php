@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateTripsDetailsTable extends Migration
 {
@@ -32,6 +33,15 @@ class CreateTripsDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trips__details');
+
+        Schema::dropIfExists('trips_detials');
+        Schema::dropIfExists('trips',function (Blueprint $table){
+            $table->dropForeign(['trips_id']);
+        });
+        Schema::dropIfExists('tourist_attractions',function (Blueprint $table){
+            $table->dropForeign(['tourist_id']);
+        });
+        
+
     }
 }

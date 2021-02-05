@@ -18,9 +18,10 @@ class CreateAdminsTable extends Migration
             $table->string('fname',255);
             $table->string('lname',255);
             $table->string('phone',10);
-            $table->string('username',255);
+            $table->string('username',255)->unique();
             $table->string('password',255);
             $table->string('admin_status',40)->default('Enable');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -32,6 +33,7 @@ class CreateAdminsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('confirms');
         Schema::dropIfExists('admins');
     }
 }
