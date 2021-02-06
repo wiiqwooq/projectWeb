@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSellingTripsTable extends Migration
+class CreateConfirmationsTripsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateSellingTripsTable extends Migration
      */
     public function up()
     {
-        Schema::create('selling_trips', function (Blueprint $table) {
-            $table->bigIncrements("selling_id");
+        Schema::create('confirmations', function (Blueprint $table) {
+            $table->bigIncrements("confirm_id");
             $table->String("account_number",20);
             $table->String("reciept",255);
             $table->date("date");
@@ -31,9 +31,12 @@ class CreateSellingTripsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('selling_trips');
-        Schema::dropIfExists('booking_trips',function (Blueprint $table){
-            $table->dropForeign(['booking_id']);
+        Schema::dropIfExists('confirmations');
+        Schema::dropIfExists('admins',function (Blueprint $table){
+            $table->dropForeign(['admin_id']);
+        });
+        Schema::dropIfExists('selling_trips',function (Blueprint $table){
+            $table->dropForeign(['selling_id']);
         });
     }
 }

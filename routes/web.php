@@ -23,17 +23,11 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('admins', 'adminsController');
-
 Route::resource('attractions', 'attractionsController');
 Route::resource('users', 'usersController');
-
 Route::delete('deleteimg/{id}', 'attractionsController@destroyImage');
-
 Route::resource('trips', 'tripsController');
-
-Route::get('/confirm', function () {
-    return view('comfirm.confirm');
-});
+Route::resource('confirm', 'confirmsController');
 
 Route::get('/history', function () {
     return view('history.history');

@@ -42,6 +42,72 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="col-sm-2 col-sm-2 control-label">Trips Status:</label>
+        <div class="col-sm-10">
+            @if ($trips->trips_status == "Available")
+            <div class="radio">
+                <label>
+                  <input type="radio" name="trips_status" value="Available" checked>
+                  Available
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                  <input type="radio" name="trips_status" value="Enable">
+                  Enable
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                  <input type="radio" name="trips_status" value="Disable">
+                  Disable
+                </label>
+            </div>
+            @endif
+            @if ($trips->trips_status == "Enable")
+            <div class="radio">
+                <label>
+                  <input type="radio" name="trips_status" value="Available">
+                  Available
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                  <input type="radio" name="trips_status" value="Enable" checked>
+                  Enable
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                  <input type="radio" name="trips_status" value="Disable">
+                  Disable
+                </label>
+            </div>
+            @endif
+            @if($trips->trips_status == "Disable")
+            <div class="radio">
+                <label>
+                  <input type="radio" name="trips_status" value="Available">
+                  Available
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                  <input type="radio" name="trips_status" value="Enable">
+                  Enable
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                  <input type="radio" name="trips_status" value="Disable" checked>
+                  Disable
+                </label>
+            </div>
+            @endif
+
+        </div>
+    </div>
+    <div class="form-group">
         <label class="col-sm-2 col-sm-2 control-label">Start Date:</label>
         <div class="col-sm-10">
             <input type="date" class="form-control round-form" name="start_date" value="{{$trips->start_date}}">

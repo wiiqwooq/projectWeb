@@ -45,7 +45,7 @@ class tripsController extends Controller
     {
         $trips = Trips::join('provinces','trips.province_id','=','provinces.province_id') ->where('trips_id',$id)->get();
         $details = Trips_Detail::join('tourist_attractions','trips_details.tourist_id','=','tourist_attractions.tourist_id')
-                    ->where('trips_id',$id)->get();
+                    ->where('trips_id',$id)->orderBy('trips_details.date','ASC')->get();
         return view('Trips.detial_trips',compact('trips','details'));
     }
 
@@ -57,7 +57,7 @@ class tripsController extends Controller
         $infopro = Trips::join('provinces','trips.province_id','=','provinces.province_id')->where('trips.trips_id',$id)->get();
         $infodetail = Trips_Detail::join('trips','trips.trips_id','=','trips_details.trips_id')
                     ->join('tourist_attractions','trips_details.tourist_id','=','tourist_attractions.tourist_id')
-                    ->where('trips_details.trips_id',$id)->orderBy('trips_details.detail_id','ASC')->get();
+                    ->where('trips_details.trips_id',$id)->orderBy('trips_details.date','ASC')->get();
 
         return view('Trips.edit_trips',compact('trips','atts','pro','infopro','infodetail'));
     }
