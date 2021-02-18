@@ -17,12 +17,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach ($sell as $his)
                                 <tr>
-                                    <td>h0001</td>
-                                    <td>Rosy White</td>
-                                    <td>3000</td>
-                                    <td>30/12/20</td>
+                                    <td>{{$his->selling_id}}</td>
+                                    <td>{{$his->fname}}</td>
+                                    <td>{{$his->total_price}}</td>
+                                    <td>{{$his->c_date}}</td>
                                 </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div><! --/content-panel -->

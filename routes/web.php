@@ -28,14 +28,8 @@ Route::resource('users', 'usersController');
 Route::delete('deleteimg/{id}', 'attractionsController@destroyImage');
 Route::resource('trips', 'tripsController');
 Route::resource('confirm', 'confirmsController');
-
-Route::get('/history', function () {
-    return view('history.history');
-});
-
-Route::get('/reports', function () {
-    return view('repotrs.report');
-});
+Route::resource('/history', 'sellController');
+Route::resource('/reports', 'reportController');
 
 
 Route::get('/testCarbon',function(){

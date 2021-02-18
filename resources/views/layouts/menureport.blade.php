@@ -151,5 +151,19 @@
 
     <script type="text/javascript" src="{{asset('assets/js/gritter/js/jquery.gritter.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/js/gritter-conf.js')}}"></script>
+    <script src="{{asset('assets/js/common-scripts.js')}}"></script>
+
+    <!--script for this page-->
+    <script src="{{asset('assets/js/chart-master/Chart.js')}}"></script>
+    <script src="{{asset('assets/js/chartjs-conf.js')}}"></script>
+
+    <script>
+        //custom select box
+
+        $(function(){
+            $('select.styled').customSelect();
+        });
+
+    </script>
   </body>
 </html>

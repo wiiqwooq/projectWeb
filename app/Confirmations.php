@@ -10,8 +10,9 @@ class Confirmations extends Model
     protected $primaryKey= 'confirm_id';
 
     protected $fillable = [
-        'c_date',
-        'admin_id',
-        'tourist_status',
+        'account_number',
+        'reciept',
+        'date',
+        'booking_id'
     ];
 }

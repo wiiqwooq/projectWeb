@@ -38,7 +38,7 @@ class RegisterController extends Controller
             'fname' => "Piyarat",
             'lname' => "Khamprom",
             'phone' => "0935362781",
-            'username'=> "wooq",
+            'username'=> "boom",
             'password' => bcrypt("123456"),
             'admin_status' => "Enable"
         ]);

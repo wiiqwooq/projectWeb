@@ -2,82 +2,68 @@
 
 namespace App\Http\Controllers;
 
+use App\Booking_trips;
 use App\Confirmations;
+use App\Selling_trips;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class confirmsController extends Controller
 {
     public function index()
     {
-        $confirms = Confirmations::select('*')->orderBy('confirm_id','DESC')->get();
-        //return $confirms;
+        $confirms=Confirmations::join('booking_trips','confirmations.booking_id','=','booking_trips.booking_id')
+        ->where('booking_trips.Payment_status','Pending payment')
+        ->orderBy('confirmations.confirm_id','DESC')->get();
         return view('comfirm.confirm', compact('confirms'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        Selling_trips::create([
+            'c_date' => today(),
+            'admin_id' => Auth::user()->admin_id,
+            'confirm_id' =>  $id,
+        ]);
+
+        $sell=Confirmations::join('booking_trips','confirmations.booking_id','=','booking_trips.booking_id')
+        ->where('confirmations.confirm_id',$id)->first();
+
+        $update=Booking_trips::find($sell['booking_id']);
+        $update->update([
+            'Payment_status' => 'Complete'
+        ]);
+
+        return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $sell=Confirmations::join('booking_trips','confirmations.booking_id','=','booking_trips.booking_id')
+        ->where('confirmations.confirm_id',$id)->first();
+
+        $update=Booking_trips::find($sell['booking_id']);
+        $update->update([
+            'Payment_status' => 'Cancelled'
+        ]);
+
+        return redirect()->back();
     }
 }

@@ -64,13 +64,12 @@ class tripsController extends Controller
 
     public function update(Request $request,$id)
     {
-        // return $request;
+       //return $request;
         $update=Trips::findorFail($id);
         $update->update($request->all());
 
         for($i = 0; $i < count($request->tourist_id); $i++){
             if(isset($request->detail_id[$i])){
-            //return $request;
                 DB::table('trips_details')->where('detail_id',$request->detail_id[$i])->update([
                 'tourist_id' => $request->tourist_id[$i],
                 'date' => $request->date[$i],

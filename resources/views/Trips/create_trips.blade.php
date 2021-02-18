@@ -82,7 +82,7 @@
                         </div>
                         <div class="form-group">
                         <div class="col-sm-10">
-                            <input type="date" class="form-control round-form" name="date[]">
+                            <input type="date" class="form-control round-form" min="2021-02-07" max="2021-02-07" name="date[]">
                         </div>
                         </div>
                         <div class="form-group">
