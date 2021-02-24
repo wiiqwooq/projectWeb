@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/testregister', 'Auth\RegisterController@test');
 
 Route::get('/', 'HomeController@index');
@@ -30,25 +31,27 @@ Route::resource('trips', 'tripsController');
 Route::resource('confirm', 'confirmsController');
 Route::resource('/history', 'sellController');
 Route::resource('/reports', 'reportController');
+Route::get('/getreport', 'reportController@getSellReport')->name('get.report');
+Route::get('/gettopreport', 'reportController@getTopReport')->name('get.topreport');
+Route::post('/reportSell/pdf', 'reportController@createSellingPDF')->name('export.selling');
+Route::post('/reporttopSell/pdf', 'reportController@createTopTripPDF')->name('export.toptrips');
 
 
-Route::get('/testCarbon',function(){
+Route::get('/testCarbon', function () {
     Carbon::now();
     $str = "";
-    for($i=0;$i<5;$i++) {
+    for ($i = 0; $i < 5; $i++) {
         $str .= time() . "<br>";
     }
     return $str;
 });
 
-Route::get('/testaddrow',function(){
+Route::get('/testaddrow', function () {
     return view('Trips.test_add_row');
 });
 
-Route::get('/logout','Auth\LoginController@logout');
+Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::delete('/deletetrip/{id}','tripsController@deleteTrip')->name('trips.delete');
+Route::delete('/deletetrip/{id}', 'tripsController@deleteTrip')->name('trips.delete');
 
 Auth::routes();
-
-

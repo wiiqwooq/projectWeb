@@ -13,9 +13,9 @@ class confirmsController extends Controller
 {
     public function index()
     {
-        $confirms=Confirmations::join('booking_trips','confirmations.booking_id','=','booking_trips.booking_id')
-        ->where('booking_trips.Payment_status','Pending payment')
-        ->orderBy('confirmations.confirm_id','DESC')->get();
+        $confirms = Confirmations::join('booking_trips', 'confirmations.booking_id', '=', 'booking_trips.booking_id')
+            ->where('booking_trips.Payment_status', 'Pending payment')
+            ->orderBy('confirmations.confirm_id', 'DESC')->get();
         return view('comfirm.confirm', compact('confirms'));
     }
     public function create()
@@ -43,10 +43,10 @@ class confirmsController extends Controller
             'confirm_id' =>  $id,
         ]);
 
-        $sell=Confirmations::join('booking_trips','confirmations.booking_id','=','booking_trips.booking_id')
-        ->where('confirmations.confirm_id',$id)->first();
+        $sell = Confirmations::join('booking_trips', 'confirmations.booking_id', '=', 'booking_trips.booking_id')
+            ->where('confirmations.confirm_id', $id)->first();
 
-        $update=Booking_trips::find($sell['booking_id']);
+        $update = Booking_trips::find($sell['booking_id']);
         $update->update([
             'Payment_status' => 'Complete'
         ]);
@@ -56,10 +56,10 @@ class confirmsController extends Controller
 
     public function destroy($id)
     {
-        $sell=Confirmations::join('booking_trips','confirmations.booking_id','=','booking_trips.booking_id')
-        ->where('confirmations.confirm_id',$id)->first();
+        $sell = Confirmations::join('booking_trips', 'confirmations.booking_id', '=', 'booking_trips.booking_id')
+            ->where('confirmations.confirm_id', $id)->first();
 
-        $update=Booking_trips::find($sell['booking_id']);
+        $update = Booking_trips::find($sell['booking_id']);
         $update->update([
             'Payment_status' => 'Cancelled'
         ]);

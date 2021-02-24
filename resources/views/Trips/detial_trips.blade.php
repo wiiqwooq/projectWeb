@@ -4,7 +4,8 @@
 <h3><i class="fa fa-angle-right"></i>Detail Trips
     <ul class="nav pull-right top-menu">
         <a href="/trips">
-            <button type="button" class="btn btn-round btn-theme02 btn-sm"><i class="fa fa-angle-left"></i> Back</button>
+            <button type="button" class="btn btn-round btn-theme02 btn-sm"><i class="fa fa-angle-left"></i>
+                Back</button>
         </a>
     </ul>
 </h3>
@@ -51,17 +52,17 @@
             <div class="col-sm-10">
                 @foreach ($details as $det)
                 <div class="col-sm-12">
-                <label class="col-sm-2 col-sm-2 control-label">{{$det->tourist_name}}</label>
-                <label class="col-sm-2 col-sm-2 control-label">Date: </label>
-                <label class="col-sm-2 col-sm-2 control-label">{{$det->date}}</label>
-                <label class="col-sm-2 col-sm-2 control-label">Time: </label>
-                <label class="col-sm-2 col-sm-2 control-label">{{$det->time}}</label>
+                    <label class="col-sm-2 col-sm-2 control-label">{{$det->tourist_name}}</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Date: </label>
+                    <label class="col-sm-2 col-sm-2 control-label">{{$det->date}}</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Time: </label>
+                    <label class="col-sm-2 col-sm-2 control-label">{{$det->time}}</label>
                 </div>
                 @endforeach
             </div>
 
         </div>
     </div>
-    </div>
+</div>
 
 @endsection

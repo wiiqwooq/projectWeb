@@ -10,10 +10,10 @@ class sellController extends Controller
 
     public function index()
     {
-        $sell = Selling_trips::join('admins','selling_trips.admin_id','=','admins.admin_id')
-        ->join('confirmations','selling_trips.confirm_id','=','confirmations.confirm_id')
-        ->join('booking_trips','confirmations.booking_id','=','booking_trips.booking_id')
-        ->get();
+        $sell = Selling_trips::join('admins', 'selling_trips.admin_id', '=', 'admins.admin_id')
+            ->join('confirmations', 'selling_trips.confirm_id', '=', 'confirmations.confirm_id')
+            ->join('booking_trips', 'confirmations.booking_id', '=', 'booking_trips.booking_id')
+            ->get();
         return view('history.history', compact('sell'));
     }
 

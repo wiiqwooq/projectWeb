@@ -13,14 +13,14 @@ class attractionsController extends Controller
 {
     public function index()
     {
-        $att = Tourist_Attraction::join('provinces','tourist_attractions.province_id','=','provinces.province_id')->get();
+        $att = Tourist_Attraction::join('provinces', 'tourist_attractions.province_id', '=', 'provinces.province_id')->get();
         return view('Attractions.attractions', compact('att'));
     }
 
     public function create()
     {
         $pro = Province::all();
-        return view('Attractions.create_attraction',compact('pro'));
+        return view('Attractions.create_attraction', compact('pro'));
     }
 
     public function store(Request $request)
@@ -30,17 +30,17 @@ class attractionsController extends Controller
         $att->save();
 
 
-        if($file=$request->file('image_name')){
-            foreach($file as $files){
-                $name=$files->getClientOriginalName();
-                $files->move('images',time().$name);
+        if ($file = $request->file('image_name')) {
+            foreach ($file as $files) {
+                $name = $files->getClientOriginalName();
+                $files->move('images', time() . $name);
                 $img = new Image_Tourist_Attraction;
-                $img->image_name=time()."".$name;
-                $img->tourist_id=$att->tourist_id;
+                $img->image_name = time() . "" . $name;
+                $img->tourist_id = $att->tourist_id;
                 $img->save();
             }
         }
-       return back();
+        return back();
     }
 
     public function show($id)
@@ -52,23 +52,24 @@ class attractionsController extends Controller
 
     public function edit($id)
     {
+        $pro = Province::all();
         $atts = Tourist_Attraction::find($id);
-        $imgs= DB::select('select * from image_tourist_attractions where tourist_id = :tourist_id',['tourist_id' => $id]);
-        return view('Attractions.edit_attraction',compact('atts','imgs'));
+        $imgs = DB::select('select * from image_tourist_attractions where tourist_id = :tourist_id', ['tourist_id' => $id]);
+        return view('Attractions.edit_attraction', compact('atts', 'imgs', 'pro'));
     }
 
     public function update(Request $request, $id)
     {
-        $update=Tourist_Attraction::findorFail($id);
+        $update = Tourist_Attraction::findorFail($id);
         $update->update($request->all());
 
-        if($file=$request->file('image_name')){
-            foreach($file as $files){
-                $name=$files->getClientOriginalName();
-                $files->move('images',time().$name);
+        if ($file = $request->file('image_name')) {
+            foreach ($file as $files) {
+                $name = $files->getClientOriginalName();
+                $files->move('images', time() . $name);
                 $img = new Image_Tourist_Attraction;
-                $img->image_name=time()."".$name;
-                $img->tourist_id=$update->tourist_id;
+                $img->image_name = time() . "" . $name;
+                $img->tourist_id = $update->tourist_id;
                 $img->save();
             }
         }
@@ -87,5 +88,4 @@ class attractionsController extends Controller
         Image_Tourist_Attraction::find($id)->delete();
         return back();
     }
-
 }

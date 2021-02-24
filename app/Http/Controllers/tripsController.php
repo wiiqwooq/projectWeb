@@ -13,14 +13,14 @@ class tripsController extends Controller
 {
     public function index()
     {
-        $trips = Trips::join('provinces','trips.province_id','=','provinces.province_id')->get();
+        $trips = Trips::join('provinces', 'trips.province_id', '=', 'provinces.province_id')->get();
         return view('Trips.trips', compact('trips'));
     }
     public function create()
     {
         $atts = Tourist_Attraction::all();
         $pro = Province::all();
-        return view("Trips.create_trips", compact('atts','pro'));
+        return view("Trips.create_trips", compact('atts', 'pro'));
     }
 
     public function store(Request $request)
@@ -30,7 +30,7 @@ class tripsController extends Controller
         $trip->save();
 
         $tourist = $request->tourist_id;
-        for($i = 0; $i < count($tourist); $i++){
+        for ($i = 0; $i < count($tourist); $i++) {
             $detail = new Trips_Detail();
             $detail->date = $request->date[$i];
             $detail->time = $request->time[$i];
@@ -38,15 +38,15 @@ class tripsController extends Controller
             $detail->tourist_id = $request->tourist_id[$i];
             $detail->save();
         }
-       return back();
+        return back();
     }
 
     public function show($id)
     {
-        $trips = Trips::join('provinces','trips.province_id','=','provinces.province_id') ->where('trips_id',$id)->get();
-        $details = Trips_Detail::join('tourist_attractions','trips_details.tourist_id','=','tourist_attractions.tourist_id')
-                    ->where('trips_id',$id)->orderBy('trips_details.date','ASC')->get();
-        return view('Trips.detial_trips',compact('trips','details'));
+        $trips = Trips::join('provinces', 'trips.province_id', '=', 'provinces.province_id')->where('trips_id', $id)->get();
+        $details = Trips_Detail::join('tourist_attractions', 'trips_details.tourist_id', '=', 'tourist_attractions.tourist_id')
+            ->where('trips_id', $id)->orderBy('trips_details.date', 'ASC')->get();
+        return view('Trips.detial_trips', compact('trips', 'details'));
     }
 
     public function edit($id)
@@ -54,26 +54,25 @@ class tripsController extends Controller
         $trips = Trips::find($id);
         $atts = Tourist_Attraction::all();
         $pro = Province::all();
-        $infopro = Trips::join('provinces','trips.province_id','=','provinces.province_id')->where('trips.trips_id',$id)->get();
-        $infodetail = Trips_Detail::join('trips','trips.trips_id','=','trips_details.trips_id')
-                    ->join('tourist_attractions','trips_details.tourist_id','=','tourist_attractions.tourist_id')
-                    ->where('trips_details.trips_id',$id)->orderBy('trips_details.date','ASC')->get();
+        $infodetail = Trips_Detail::join('trips', 'trips.trips_id', '=', 'trips_details.trips_id')
+            ->join('tourist_attractions', 'trips_details.tourist_id', '=', 'tourist_attractions.tourist_id')
+            ->where('trips_details.trips_id', $id)->orderBy('trips_details.date', 'ASC')->get();
 
-        return view('Trips.edit_trips',compact('trips','atts','pro','infopro','infodetail'));
+        return view('Trips.edit_trips', compact('trips', 'atts', 'pro', 'infodetail'));
     }
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-       //return $request;
-        $update=Trips::findorFail($id);
+        //return $request;
+        $update = Trips::findorFail($id);
         $update->update($request->all());
 
-        for($i = 0; $i < count($request->tourist_id); $i++){
-            if(isset($request->detail_id[$i])){
-                DB::table('trips_details')->where('detail_id',$request->detail_id[$i])->update([
-                'tourist_id' => $request->tourist_id[$i],
-                'date' => $request->date[$i],
-                'time' => $request->time[$i],
+        for ($i = 0; $i < count($request->tourist_id); $i++) {
+            if (isset($request->detail_id[$i])) {
+                DB::table('trips_details')->where('detail_id', $request->detail_id[$i])->update([
+                    'tourist_id' => $request->tourist_id[$i],
+                    'date' => $request->date[$i],
+                    'time' => $request->time[$i],
                 ]);
             } else {
                 Trips_Detail::create([
@@ -81,12 +80,11 @@ class tripsController extends Controller
                     'date' => $request->date[$i],
                     'time' => $request->time[$i],
                     'trips_id' => $id,
-                    ]);
+                ]);
             }
-
         }
 
-       return redirect()->back();
+        return redirect()->back();
     }
 
     public function destroy($trips)
@@ -95,7 +93,8 @@ class tripsController extends Controller
         return back();
     }
 
-    public function deleteTrip($id) {
+    public function deleteTrip($id)
+    {
         Trips::find($id)->delete();
         return back();
     }

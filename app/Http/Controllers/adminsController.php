@@ -30,7 +30,7 @@ class adminsController extends Controller
             'fname' => $request->fname,
             'lname' => $request->lname,
             'phone' =>  $request->phone,
-            'username'=>  $request->username,
+            'username' =>  $request->username,
             'password' => bcrypt($request->password),
             'admin_status' => "Enable"
         ]);
@@ -45,12 +45,12 @@ class adminsController extends Controller
     public function edit($id)
     {
         $admin = Admins::find($id);
-        return view('Admins.edit_admins',compact('admin'));
+        return view('Admins.edit_admins', compact('admin'));
     }
 
     public function update(Request $request, $id)
     {
-        $update=Admins::findorFail($id);
+        $update = Admins::findorFail($id);
         $update->update($request->all());
 
         return redirect('/admins');
