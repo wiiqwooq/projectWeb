@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class confirmsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('adminOnly');
+    }
     public function index()
     {
         $confirms = Confirmations::join('booking_trips', 'confirmations.booking_id', '=', 'booking_trips.booking_id')

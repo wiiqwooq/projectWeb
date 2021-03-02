@@ -1,6 +1,7 @@
 @extends('layouts.menuattraction')
 
 @section('menuatts')
+<?php $i = 1; ?>
 <h3><i class="fa fa-angle-right"></i>Manage Attractions
     <ul class="nav pull-right top-menu">
         <a href="{{ route('attractions.create') }}">
@@ -17,7 +18,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Tourist_id</th>
+                        <th>#</th>
                         <th>Tourist Name</th>
                         <th>Position</th>
                         <th>Tourist_Status</th>
@@ -27,7 +28,7 @@
                 <tbody>
                     @foreach ($att as $atts)
                     <tr>
-                        <td>{{$atts->tourist_id}}</td>
+                        <td>{{$i}}</td>
                         <td>{{$atts->tourist_name}}</td>
                         <td>{{$atts->province_name}}</td>
                         <td>{{$atts->tourist_status}}</td>
@@ -36,16 +37,17 @@
                                     class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
                         </td>
                         <td>
-                            <form class="form-inline" method="post"
+                            <form id="form_{{$atts->tourist_id}}" class="form-inline" method="post"
                                 action="{{route('attractions.destroy',[$atts->tourist_id])}}"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger btn-xs"><i
-                                        class="fa fa-trash-o "></i></button>
+                                <button type="button" class="btn btn-danger btn-xs"
+                                    onclick="delete_{{$atts->tourist_id}}()"><i class="fa fa-trash-o "></i></button>
                             </form>
                         </td>
                     </tr>
+                    <?php $i++; ?>
                     @endforeach
 
                 </tbody>
@@ -54,4 +56,29 @@
         <! --/content-panel -->
     </div>
 </div>
+@endsection
+@section('deletetourist')
+<script>
+    @foreach($att as $atts)
+    function delete_{{$atts->tourist_id}}() {
+        swal({
+  title: "Are you sure?",
+  text: "Do you would like to delete {{$atts->tourist_name}} ?",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("{{$atts->tourist_name}} is deleted.", {
+      icon: "success",
+    }).then(()=>{
+        document.getElementById('form_{{$atts->tourist_id}}').submit();
+    });
+  }
+});
+    }
+    @endforeach
+
+</script>
 @endsection

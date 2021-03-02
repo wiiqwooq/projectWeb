@@ -1,6 +1,7 @@
 @extends('layouts.menuhistory')
 
 @section('menuhis')
+<?php $i=1; ?>
 <h3><i class="fa fa-angle-right"></i>Sells History</h3>
 <div class="row">
 
@@ -10,7 +11,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>history_id</th>
+                        <th>#</th>
                         <th>Admin</th>
                         <th>Price</th>
                         <th>Date</th>
@@ -19,11 +20,12 @@
                 <tbody>
                     @foreach ($sell as $his)
                     <tr>
-                        <td>{{$his->selling_id}}</td>
+                        <td>{{$i}}</td>
                         <td>{{$his->fname}}</td>
                         <td>{{$his->total_price}}</td>
                         <td>{{$his->c_date}}</td>
                     </tr>
+                    <?php $i++; ?>
                     @endforeach
                 </tbody>
             </table>

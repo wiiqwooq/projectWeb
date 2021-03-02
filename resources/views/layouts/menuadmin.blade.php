@@ -23,6 +23,7 @@
     <link href="{{asset('assets/css/style-responsive.css')}}" rel="stylesheet">
 
     <script src="{{asset('assets/js/chart-master/Chart.js')}}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 
@@ -170,6 +171,8 @@
 
         <script type="text/javascript" src="{{asset('assets/js/gritter/js/jquery.gritter.js')}}"></script>
         <script type="text/javascript" src="{{asset('assets/js/gritter-conf.js')}}"></script>
+        @yield('deleteadmin')
+        @yield('editadmin')
 </body>
 
 </html>

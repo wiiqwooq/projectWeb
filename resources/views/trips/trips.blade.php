@@ -1,6 +1,7 @@
 @extends('layouts.menutrip')
 
 @section('menutrip')
+<?php $i = 1; ?>
 <h3><i class="fa fa-angle-right"></i>Manage Trips
     <ul class="nav pull-right top-menu">
         <a href="{{ route('trips.create') }}">
@@ -14,7 +15,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Trip id</th>
+                        <th>#</th>
                         <th>Trip Name</th>
                         <th>Province</th>
                         <th>Start_date</th>
@@ -30,7 +31,7 @@
                 <tbody>
                     @foreach ($trips as $trip)
                     <tr>
-                        <td>{{$trip->trips_id}}</td>
+                        <td>{{$i}}</td>
                         <td>{{$trip->trips_name}}</td>
                         <td>{{$trip->province_name}}</td>
                         <td>{{$trip->start_date}}</td>
@@ -47,16 +48,17 @@
                                     class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
                         </td>
                         <td>
-
-                            <form action="{{route('trips.delete',['id' => $trip->trips_id])}}" method="post">
+                            <form id="form_{{$trip->trips_id}}" class="form-inline"
+                                action="{{route('trips.delete',['id' => $trip->trips_id])}}" method="post">
                                 @method('DELETE')
                                 @csrf
-                                <button class="btn btn-danger btn-xs" type="submit"><i
-                                        class="fa fa-trash-o "></i></button>
+                                <button class="btn btn-danger btn-xs" type="button"
+                                    onclick="delete_{{$trip->trips_id}}()"><i class="fa fa-trash-o "></i></button>
                             </form>
                         </td>
 
                     </tr>
+                    <?php $i++; ?>
                     @endforeach
                 </tbody>
             </table>
@@ -64,4 +66,30 @@
         <! --/content-panel -->
     </div>
 </div>
+@endsection
+
+@section('deletetrip')
+<script>
+    @foreach($trips as $trip)
+    function delete_{{$trip->trips_id}}() {
+        swal({
+  title: "Are you sure?",
+  text: "Do you would like to delete {{$trip->trips_name}} ?",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("{{$trip->trips_name}} is deleted.", {
+      icon: "success",
+    }).then(()=>{
+        document.getElementById('form_{{$trip->trips_id}}').submit();
+    });
+  }
+});
+    }
+    @endforeach
+
+</script>
 @endsection

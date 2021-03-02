@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\App;
 
 class reportController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('adminOnly');
+    }
     public function index()
     {
         $months = [

@@ -44,7 +44,6 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password], true)) {
-            // Authentication passed...
             return redirect('/users');
         }
         return redirect('/login')->with('status','Username or Password is wrong!!!');

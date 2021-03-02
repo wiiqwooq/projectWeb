@@ -20,7 +20,7 @@ class HomeController extends Controller
     public function index()
     {
         $post =$this->getLoggedinAdmin();
-        return view('users.users', compact($post));
+        return redirect('/users');
     }
 
     public function getLoggedinAdmin()

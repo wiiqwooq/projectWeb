@@ -35,7 +35,7 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Password:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control round-form" name="password" value="{{$admin->password}}">
+                    <button type="button" id="check_password" onclick="check_{{$admin->admin_id}}()" class="btn btn-warning btn-round">Change Password</button>
                 </div>
             </div>
             <div class="form-group">
@@ -79,9 +79,29 @@
                 </div>
             </div>
             <center>
-                <button type="submit" class="btn btn-theme03">Edit</button>
+                <button type="submit" class="btn btn-theme03 ">Edit</button>
             </center>
         </form>
     </div>
 </div>
+@endsection
+
+@section('editadmin')
+<script>
+    function check_{{$admin->admin_id}}() {
+    swal("Old password:", {
+    content: {
+    element: "input",
+    attributes: {
+      placeholder: "Type your old password",
+      type: "password",
+    },
+  },
+})
+.then((value) => {
+  swal(`You typed: ${value}`);
+});
+    }
+
+</script>
 @endsection

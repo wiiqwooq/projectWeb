@@ -25,6 +25,7 @@
     <script src="{{asset('assets/js/chart-master/Chart.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 </head>
 
@@ -172,6 +173,7 @@
 
         <script type="text/javascript" src="{{asset('assets/js/gritter/js/jquery.gritter.js')}}"></script>
         <script type="text/javascript" src="{{asset('assets/js/gritter-conf.js')}}"></script>
-</body>
+        @yield('manageconfirm')
+    </body>
 
 </html>

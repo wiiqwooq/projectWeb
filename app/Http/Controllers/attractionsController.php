@@ -11,9 +11,14 @@ use Carbon\Carbon;
 
 class attractionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('adminOnly');
+    }
     public function index()
     {
-        $att = Tourist_Attraction::join('provinces', 'tourist_attractions.province_id', '=', 'provinces.province_id')->get();
+        $att = Tourist_Attraction::join('provinces', 'tourist_attractions.province_id', '=', 'provinces.province_id')
+            ->orderBy('tourist_attractions.tourist_id','DESC')->get();
         return view('Attractions.attractions', compact('att'));
     }
 

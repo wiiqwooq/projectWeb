@@ -1,6 +1,7 @@
 @extends('layouts.menuconfirm')
 
 @section('menuconfirm')
+<?php $i = 1; ?>
 <h3><i class="fa fa-angle-right"></i>Confirm Payments</h3>
 <div class="row">
 
@@ -10,7 +11,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Confirm_id</th>
+                        <th>#</th>
                         <th>Account_number</th>
                         <th>Receipt</th>
                         <th>Date</th>
@@ -22,18 +23,19 @@
                     @foreach ($confirms as $confirm)
                     <tr>
 
-                        <td>{{$confirm->confirm_id}}</td>
+                        <td>{{$i}}</td>
                         <td>{{$confirm->account_number}}</td>
                         <td><a href="/images/{{$confirm->reciept}}" data-fancybox="slip"><img
                                     src="/images/{{$confirm->reciept}}" width="60"></a></td>
                         <td>{{$confirm->date}}</td>
                         <td>{{$confirm->total_price}}</td>
                         <td>
-                            <form class="form-inline" method="post"
+                            <form id="formconfirm_{{$confirm->confirm_id}}" class="form-inline" method="post"
                                 action="{{ route('confirm.update',[$confirm->confirm_id])}}">
                                 {{ csrf_field() }}
                                 @method("put")
-                                <button class="btn btn-success btn-xs"><i>
+                                <button class="btn btn-success btn-xs" type="button"
+                                    onclick="confirm_{{$confirm->confirm_id}}()"><i>
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check"
                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd"
@@ -43,12 +45,12 @@
                             </form>
                         </td>
                         <td>
-                            <form class="form-inline" method="post"
+                            <form id="formdelete_{{$confirm->confirm_id}}" class="form-inline" method="post"
                                 action="{{route('confirm.destroy',[$confirm->confirm_id])}}"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @method('delete')
-                                <button class="btn btn-danger btn-xs"><i>
+                                <button class="btn btn-danger btn-xs"type="button" onclick="delete_{{$confirm->confirm_id}}()"><i>
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash"
                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -60,6 +62,7 @@
                             </form>
                         </td>
                     </tr>
+                    <?php $i++; ?>
                     @endforeach
                 </tbody>
             </table>
@@ -67,4 +70,49 @@
         <! --/content-panel -->
     </div>
 </div>
+@endsection
+
+@section('manageconfirm')
+<script>
+    @foreach($confirms as $confirm)
+    function confirm_{{$confirm->confirm_id}}() {
+        swal({
+  title: "Are you sure?",
+  text: "Do you would like to confirm this confirmation?",
+  icon: "info",
+  buttons: true,
+  dangerMode: true
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Confirmation is confirmed.", {
+      icon: "success",
+    }).then(()=>{
+        document.getElementById('formconfirm_{{$confirm->confirm_id}}').submit();
+    });
+  }
+});
+    }
+    function delete_{{$confirm->confirm_id}}() {
+        swal({
+  title: "Are you sure?",
+  text: "Do you would like to delete this confirmation?",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Confirmation is deleted.", {
+      icon: "success",
+    }).then(()=>{
+        document.getElementById('formdelete_{{$confirm->confirm_id}}').submit();
+    });
+  }
+});
+    }
+    @endforeach
+
+</script>
+
 @endsection

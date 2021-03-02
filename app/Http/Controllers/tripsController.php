@@ -11,9 +11,14 @@ use App\Province;
 
 class tripsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('adminOnly');
+    }
     public function index()
     {
-        $trips = Trips::join('provinces', 'trips.province_id', '=', 'provinces.province_id')->get();
+        $trips = Trips::join('provinces', 'trips.province_id', '=', 'provinces.province_id')
+                ->orderBy('trips.trips_id','DESC')->get();
         return view('Trips.trips', compact('trips'));
     }
     public function create()

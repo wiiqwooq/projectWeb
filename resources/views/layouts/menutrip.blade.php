@@ -23,7 +23,7 @@
     <link href="{{asset('assets/css/style-responsive.css')}}" rel="stylesheet">
 
     <script src="{{asset('assets/js/chart-master/Chart.js')}}"></script>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -153,8 +153,6 @@
         var i = 0;
         <section id="main-content">
             <section class="wrapper">
-
-
                 <script src="{{asset('assets/js/jquery.js')}}"></script>
                 <script src="{{asset('assets/js/jquery-1.8.3.min.js')}}"></script>
                 <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
@@ -171,6 +169,7 @@
                 @yield('menutrip')
             </section>
         </section>
+        @yield('deletetrip')
 </body>
 
 </html>
