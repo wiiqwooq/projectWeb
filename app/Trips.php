@@ -8,6 +8,7 @@ class Trips extends Model
 {
     protected $table= 'trips';
     protected $primaryKey= 'trips_id';
+    public $timestamps = false;
 
     protected $fillable = [
         'trips_name',

@@ -8,6 +8,7 @@ class Booking_trips extends Model
 {
     protected $table= 'booking_trips';
     protected $primaryKey= 'booking_id';
+    public $timestamps = false;
 
     protected $fillable = [
         'booking_date',

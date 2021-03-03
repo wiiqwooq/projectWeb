@@ -15,9 +15,9 @@ class Admins extends Authenticatable
 
     //protected $guarded = 'admin_id';
     protected $table= 'admins';
-
     protected $primaryKey= 'admin_id';
-
+    public $timestamps = false;
+    
     protected $hidden =[
         'password',
     ];

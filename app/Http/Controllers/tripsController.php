@@ -11,10 +11,6 @@ use App\Province;
 
 class tripsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('adminOnly');
-    }
     public function index()
     {
         $trips = Trips::join('provinces', 'trips.province_id', '=', 'provinces.province_id')
