@@ -11,7 +11,7 @@
 </h3>
 <div class="col-lg-12">
     <div class="form-panel">
-        <form class="form-horizontal style-form" method="post"
+        <form id="editAttraction" class="form-horizontal style-form" method="post"
             action="{{route('attractions.update', [$atts->tourist_id])}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             @method("put")
@@ -118,9 +118,7 @@
                             <tr>
                                 <td><img src="/images/{{$img->image_name}}" width="50" height="50"></td>
                                 <td>
-
-                                    <button form="deleteForm"
-                                        onclick="document.getElementById('deleteForm_{{$img->image_id}}').submit();"
+                                    <button form="deleteForm" onclick="deleteImage_{{$img->image_id}}()"
                                         class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
 
                                 </td>
@@ -133,7 +131,7 @@
             </div>
 
             <center>
-                <button type="submit" class="btn btn-theme03">Edit</button>
+                <button type="button" onclick="checkEdit();" class="btn btn-theme03">Edit</button>
             </center>
         </form>
     </div>
@@ -144,4 +142,46 @@
     @method('DELETE')
 </form>
 @endforeach
+@endsection
+@section('deletetourist')
+<script>
+    function checkEdit() {
+        swal({
+  title: "Are you sure?",
+  text: "Do you would like to edit {{$atts->tourist_name}} ?",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+}).then((willDelete) => {
+  if (willDelete) {
+    swal("{{$atts->tourist_name}} is edited.", {
+      icon: "success",
+    }).then(()=>{
+        document.getElementById('editAttraction').submit();
+    });
+  }
+});
+}
+
+@foreach ($imgs as $img)
+function deleteImage_{{$img->image_id}}() {
+        swal({
+  title: "Are you sure?",
+  text: "Do you would like to delete this picture ?",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+}).then((willDelete) => {
+  if (willDelete) {
+    swal("picture is deleted.", {
+      icon: "success",
+    }).then(()=>{
+        document.getElementById('deleteForm_{{$img->image_id}}').submit();
+    });
+  }
+});
+}
+@endforeach
+</script>
+
 @endsection

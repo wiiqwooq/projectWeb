@@ -3,8 +3,8 @@
 @section('menutrip')
 <?php $count = 1; ?>
 @foreach ($infodetail as $info)
-<form method="post" action="{{route('trips.destroy',[$info->detail_id])}}" style="display: none;"
-    id="delete_{{$count}}">
+<form  method="post" action="{{route('trips.destroy',[$info->detail_id])}}" style="display: none;"
+    id="delete_{{$info->detail_id}}">
     @method('DELETE')
     @csrf
 </form>
@@ -21,7 +21,7 @@
 <div class="col-lg-12">
     <div class="form-panel">
         {{-- @foreach ($trips as $trip) --}}
-        <form class="form-horizontal style-form" method="post" action="{{route('trips.update',[$trips->trips_id])}}">
+        <form id="editTrips" class="form-horizontal style-form" method="post" action="{{route('trips.update',[$trips->trips_id])}}">
             {{ csrf_field() }}
             @method("put")
             <div class="form-group">
@@ -183,7 +183,7 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <button class="btn btn-theme04 btn-sm" type="button"
-                                onclick="document.getElementById('delete_{{$count}}').submit();"><i
+                                onclick="deleteTrips_{{$info->detail_id}}()"><i
                                     class="fa fa-trash-o "></i></button>
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                 @endforeach
             </div>
             <center>
-                <button type="submit" class="btn btn-warning">Update</button>
+                <button type="button" onclick="checkEdit()" class="btn btn-warning">Edit</button>
             </center>
         </form>
     </div>
@@ -240,5 +240,45 @@
             i++;
         });
     });
+
+    function checkEdit() {
+        swal({
+  title: "Are you sure?",
+  text: "Do you would like to edit {{$trips->trips_name}} ?",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+}).then((willDelete) => {
+  if (willDelete) {
+    swal("{{$trips->trips_name}} is edited.", {
+      icon: "success",
+    }).then(()=>{
+        document.getElementById('editTrips').submit();
+    });
+  }
+});
+}
+
+@foreach ($infodetail as $info)
+function deleteTrips_{{$info->detail_id}}() {
+        swal({
+  title: "Are you sure?",
+  text: "Do you would like to delete this attraction ?",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+}).then((willDelete) => {
+  if (willDelete) {
+    swal("Attraction is deleted.", {
+      icon: "success",
+    }).then(()=>{
+        document.getElementById('delete_{{$info->detail_id}}').submit();
+    });
+  }
+});
+}
+@endforeach
+
+
 </script>
 @endsection

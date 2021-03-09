@@ -18,7 +18,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/users';
+    //protected $redirectTo = '/users';
 
     /**
      * Create a new controller instance.
@@ -29,10 +29,10 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    protected function redirectTo()
-    {
-        return '/users';
-    }
+    // protected function redirectTo()
+    // {
+    //     return '/users';
+    // }
     public function username()
     {
         return 'username';
@@ -43,10 +43,11 @@ class LoginController extends Controller
     }
     public function login(Request $request)
     {
+
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password], true)) {
             return redirect('/users');
         }
-        return redirect('/login')->with('status','Username or Password is wrong!!!');
+        return redirect('/login')->with('wrongPassword','Username or Password is wrong!!!');
     }
 
     protected function guard()

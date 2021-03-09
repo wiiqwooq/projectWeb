@@ -66,15 +66,15 @@
   text: "Do you would like to delete {{$atts->tourist_name}} ?",
   icon: "warning",
   buttons: true,
-  dangerMode: true
-})
-.then((willDelete) => {
+  dangerMode: true,
+}).then((willDelete) => {
   if (willDelete) {
     swal("{{$atts->tourist_name}} is deleted.", {
       icon: "success",
-    }).then(()=>{
-        document.getElementById('form_{{$atts->tourist_id}}').submit();
     });
+    // .then(()=>{
+    //     document.getElementById('form_{{$atts->tourist_id}}').submit();
+    // });
   }
 });
     }

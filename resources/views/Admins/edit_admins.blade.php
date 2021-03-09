@@ -11,7 +11,7 @@
 </h3>
 <div class="col-lg-12">
     <div class="form-panel">
-        <form class="form-horizontal style-form" method="post" action="{{ route('admins.update', [$admin->admin_id])}}">
+        <form id="editAdmin" class="form-horizontal style-form" method="post" action="{{ route('admins.update', [$admin->admin_id])}}">
             {{ csrf_field() }}
             @method('put')
             <div class="form-group">
@@ -35,7 +35,8 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Password:</label>
                 <div class="col-sm-10">
-                    <button type="button" id="check_password" onclick="check_{{$admin->admin_id}}()" class="btn btn-warning btn-round">Change Password</button>
+                    <button type="button" id="check_password" onclick="check_{{$admin->admin_id}}()"
+                        class="btn btn-warning btn-round">Change Password</button>
                 </div>
             </div>
             <div class="form-group">
@@ -79,7 +80,7 @@
                 </div>
             </div>
             <center>
-                <button type="submit" class="btn btn-theme03 ">Edit</button>
+                <button type="button" onclick="checkEdit()" class="btn btn-theme03 ">Edit</button>
             </center>
         </form>
     </div>
@@ -102,6 +103,24 @@
   swal(`You typed: ${value}`);
 });
     }
+
+    function checkEdit() {
+        swal({
+  title: "Are you sure?",
+  text: "Do you would like to edit {{$admin->fname}} {{$admin->lname}}?",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+}).then((willDelete) => {
+  if (willDelete) {
+    swal("{{$admin->fname}} {{$admin->lname}} is edited.", {
+      icon: "success",
+    }).then(()=>{
+        document.getElementById('editAdmin').submit();
+    });
+  }
+});
+}
 
 </script>
 @endsection

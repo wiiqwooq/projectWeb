@@ -17,7 +17,7 @@ class Admins extends Authenticatable
     protected $table= 'admins';
     protected $primaryKey= 'admin_id';
     public $timestamps = false;
-    
+
     protected $hidden =[
         'password',
     ];
@@ -35,5 +35,13 @@ class Admins extends Authenticatable
     public function getAuthPassword()
     {
         return $this->password;
+    }
+
+    const ADMIN = "Enable";
+    const NON_ADMIN = "Disable";
+
+    
+    public function isAdmin(){
+    return $this->admin_status === self::ADMIN;
     }
 }

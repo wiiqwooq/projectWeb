@@ -9,9 +9,8 @@ class sellController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('adminOnly');
+        $this->middleware(['auth','adminOnly']);
     }
-
     public function index()
     {
         $sell = Selling_trips::join('admins', 'selling_trips.admin_id', '=', 'admins.admin_id')

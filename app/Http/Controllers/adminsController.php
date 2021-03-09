@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Admins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class adminsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('adminOnly');
+        $this->middleware(['auth','adminOnly']);
     }
 
     public function index()

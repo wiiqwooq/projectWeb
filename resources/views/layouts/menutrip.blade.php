@@ -61,7 +61,7 @@
 
                         <p class="centered"><a href="profile.html"><img src="{{asset('assets/img/ui-sam.jpg')}}"
                                     class="img-circle" width="60"></a></p>
-                        <h5 class="centered">Rosy White</h5>
+                        <h5 class="centered">{{Auth::user()->fname}} {{Auth::user()->lname}}</h5>
 
                         <li class="mt">
                             <a href="/users">

@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class usersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('adminOnly');
+        $this->middleware(['auth','adminOnly']);
     }
     public function index()
     {
         $users = Users::all();
         return view('users.users', compact('users'));
+
     }
 
     public function create()

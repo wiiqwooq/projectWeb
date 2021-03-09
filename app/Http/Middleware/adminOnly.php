@@ -16,9 +16,11 @@ class adminOnly
      */
     public function handle($request, Closure $next)
     {
-        //dd(Auth::user());
-        if(!Auth::user()->admin_status === "Enable") {
-            return redirect('/login');
+        //return Auth::user()->admin_status;
+
+        if(Auth::user()->admin_status != "Enable") {
+            Auth::logout();
+            return redirect('login')->with('fail','Your account can not login');
         }
 
         return $next($request);

@@ -13,8 +13,9 @@ class reportController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('adminOnly');
+        $this->middleware(['auth','adminOnly']);
     }
+
     public function index()
     {
         $months = [

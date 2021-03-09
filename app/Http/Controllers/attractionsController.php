@@ -13,8 +13,9 @@ class attractionsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('adminOnly');
+        $this->middleware(['auth','adminOnly']);
     }
+
     public function index()
     {
         $att = Tourist_Attraction::join('provinces', 'tourist_attractions.province_id', '=', 'provinces.province_id')
@@ -80,7 +81,7 @@ class attractionsController extends Controller
         }
 
 
-        return redirect('/attractions');
+        return redirect()->back();
     }
     public function destroy($id)
     {
