@@ -9,20 +9,9 @@
             @csrf
             <h2 class="form-login-heading">sign in</h2>
             <div class="login-wrap">
-                <input type="text" class="form-control" placeholder="Username" id="username" name="username" autofocus>
-                @error('username')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+                <input type="text" class="form-control" placeholder="Username" id="username" name="username" required autocomplete autofocus>
                 <br>
-                <input type="password" class="form-control" placeholder="Password" id="password" @error('password')
-                    is-invalid @enderror" name="password" required autocomplete="current-password">
-                @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+                <input type="password" class="form-control" placeholder="Password" id="password" name="password" required autocomplete>
                 <br>
                 <button class="btn btn-theme btn-block" href="index.html" type="submit" onclick="StatusLogin()"><i
                         class="fa fa-lock"></i> {{ __('Login') }}</button>

@@ -17,32 +17,25 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">First Name:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control round-form" name="fname" value="{{$admin->fname}}">
+                    <input type="text" class="form-control round-form" name="fname" value="{{$admin->fname}}" required autocomplete>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Last Name:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control round-form" name="lname" value="{{$admin->lname}}">
+                    <input type="text" class="form-control round-form" name="lname" value="{{$admin->lname}}"required autocomplete>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Username:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control round-form" name="username" value="{{$admin->username}}">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Password:</label>
-                <div class="col-sm-10">
-                    <button type="button" id="check_password" onclick="check_{{$admin->admin_id}}()"
-                        class="btn btn-warning btn-round">Change Password</button>
+                    <input type="text" class="form-control round-form" name="username" value="{{$admin->username}}"required autocomplete>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Phone:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control round-form" name="phone" value="{{$admin->phone}}">
+                    <input type="text" class="form-control round-form" name="phone" value="{{$admin->phone}}"required autocomplete>
                 </div>
             </div>
             <div class="form-group">
@@ -51,7 +44,7 @@
                     @if ($admin->admin_status == "Enable")
                     <div class="radio">
                         <label>
-                            <input type="radio" name="admin_status" value="Enable" checked>
+                            <input type="radio" name="admin_status" value="Enable" checked >
                             Enable
                         </label>
                     </div>
@@ -89,21 +82,6 @@
 
 @section('editadmin')
 <script>
-    function check_{{$admin->admin_id}}() {
-    swal("Old password:", {
-    content: {
-    element: "input",
-    attributes: {
-      placeholder: "Type your old password",
-      type: "password",
-    },
-  },
-})
-.then((value) => {
-  swal(`You typed: ${value}`);
-});
-    }
-
     function checkEdit() {
         swal({
   title: "Are you sure?",

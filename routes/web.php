@@ -18,11 +18,8 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/testregister', 'Auth\RegisterController@test');
-
 Route::get('/', 'HomeController@index');
-
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::resource('admins', 'adminsController');
 Route::resource('attractions', 'attractionsController');
 Route::resource('users', 'usersController');
@@ -35,23 +32,6 @@ Route::get('/getreport', 'reportController@getSellReport')->name('get.report');
 Route::get('/gettopreport', 'reportController@getTopReport')->name('get.topreport');
 Route::post('/reportSell/pdf', 'reportController@createSellingPDF')->name('export.selling');
 Route::post('/reporttopSell/pdf', 'reportController@createTopTripPDF')->name('export.toptrips');
-
-
-Route::get('/testCarbon', function () {
-    Carbon::now();
-    $str = "";
-    for ($i = 0; $i < 5; $i++) {
-        $str .= time() . "<br>";
-    }
-    return $str;
-});
-
-Route::get('/testaddrow', function () {
-    return view('Trips.test_add_row');
-});
-
 Route::get('/logout', 'Auth\LoginController@logout');
-
 Route::delete('/deletetrip/{id}', 'tripsController@deleteTrip')->name('trips.delete');
-
 Auth::routes();

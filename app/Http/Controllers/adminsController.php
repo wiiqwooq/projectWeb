@@ -27,6 +27,11 @@ class adminsController extends Controller
 
     public function store(Request $request)
     {
+        $chkusername = Admins::all();
+        foreach($chkusername as $chk){
+        if($request->username == $chk->username){
+            return redirect()->back()->with('fail','username นี้ไม่สามารถใช้ได้');
+        }else{
         Admins::create([
             'fname' => $request->fname,
             'lname' => $request->lname,
@@ -35,7 +40,9 @@ class adminsController extends Controller
             'password' => bcrypt($request->password),
             'admin_status' => "Enable"
         ]);
-        return view('Admins.create_admins');
+        }
+        return redirect()->back()->with('success','ลงทะเบียน Admin สำเร็จ');
+    }
     }
 
     public function show($id)

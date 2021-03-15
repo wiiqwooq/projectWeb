@@ -36,12 +36,4 @@ class Admins extends Authenticatable
     {
         return $this->password;
     }
-
-    const ADMIN = "Enable";
-    const NON_ADMIN = "Disable";
-
-    
-    public function isAdmin(){
-    return $this->admin_status === self::ADMIN;
-    }
 }

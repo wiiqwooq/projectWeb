@@ -24,6 +24,7 @@
 
     <script src="{{asset('assets/js/chart-master/Chart.js')}}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="{{asset('css/jquery.datetimepicker.min.css')}}">
 </head>
 
 <body>
@@ -166,6 +167,7 @@
 
                 <script type="text/javascript" src="{{asset('assets/js/gritter/js/jquery.gritter.js')}}"></script>
                 <script type="text/javascript" src="{{asset('assets/js/gritter-conf.js')}}"></script>
+                <script src="{{asset('js/jquery.datetimepicker.full.min.js')}}"></script>
                 @yield('menutrip')
             </section>
         </section>

@@ -1,6 +1,58 @@
 @extends('layouts.menutrip')
 
 @section('menutrip')
+
+<script>
+    $(document).ready(function(){
+        $('#start_date').datetimepicker({
+            format:'Y-m-d',
+            timepicker:false,
+            minDate:'+1970-01-01',
+            scrollInput:false
+        });
+        $('#start_date').change(function(){
+            $('#end_date').prop('disabled',false);
+
+            if($('#end_date').val() != "" && $('#start_date').val() > $('#end_date').val()) {
+                $('#end_date').datetimepicker({
+                    value:$('#start_date').val()
+                });
+                <?php $count = 1;?>
+                @foreach($infodetail as $info)
+                $("#date{{$count}}").datetimepicker({
+                    value:$('#start_date').val()
+                });
+                @endforeach
+            }
+        });
+        $('#end_date').datetimepicker({
+                format:'Y-m-d',
+                timepicker:false,
+                minDate:$('#start_date').val(),
+                defaultDate:$('#start_date').val(),
+                scrollInput:false
+            });
+        $('#end_date').change(function(){
+            initdate();
+            $('#add-more').prop('disabled',false);
+        });
+        function initdate(){
+            <?php $count = 1;?>
+            @foreach($infodetail as $info)
+            $("#date{{$count}}").datetimepicker({
+                format:'Y-m-d',
+                timepicker:false,
+                minDate:$('#start_date').val(),
+                maxDate:$('#end_date').val(),
+                defaultDate:$('#start_date').val(),
+                scrollInput:false
+            });
+            <?php $count++; ?>
+            @endforeach
+        }
+        initdate();
+    });
+</script>
 <?php $count = 1; ?>
 @foreach ($infodetail as $info)
 <form  method="post" action="{{route('trips.destroy',[$info->detail_id])}}" style="display: none;"
@@ -27,13 +79,13 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Trips Name: </label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control round-form" name="trips_name" value="{{$trips->trips_name}}">
+                    <input type="text" class="form-control round-form" name="trips_name" value="{{$trips->trips_name}}" required autocomplete>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Province:</label>
                 <div class="col-sm-10">
-                    <select class="form-control round-form" name="province_id">
+                    <select class="form-control round-form" name="province_id" required autocomplete>
                         @foreach ($pro as $province)
                         <option value="{{$province->province_id}}"
                             {{($trips->province_id == $province->province_id?'selected':'')}}>
@@ -111,25 +163,25 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Start Date:</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control round-form" name="start_date" value="{{$trips->start_date}}">
+                    <input type="text" class="form-control round-form" name="start_date" id="start_date" value="{{$trips->start_date}}" required autocomplete>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">End Date:</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control round-form" name="end_date" value="{{$trips->end_date}}">
+                    <input type="text" class="form-control round-form" name="end_date"id="end_date" value="{{$trips->end_date}}" required autocomplete>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Amount:</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control round-form" name="amount" value="{{$trips->amount}}">
+                    <input type="number" class="form-control round-form" name="amount" value="{{$trips->amount}}" required autocomplete>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Price:</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control round-form" name="price" value="{{$trips->price}}">
+                    <input type="number" class="form-control round-form" name="price" value="{{$trips->price}}" required autocomplete>
                 </div>
             </div>
             {{-- @endforeach --}}
@@ -141,6 +193,7 @@
                 @php
                 $count = 1;
                 @endphp
+
                 @foreach ($infodetail as $info)
                 <div class="form-inline">
                     <input type="hidden" name="detail_id[]" value="{{$info->detail_id}}">
@@ -151,7 +204,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <select class="form-control round-form" name="tourist_id[]">
+                            <select class="form-control round-form" name="tourist_id[]" required autocomplete>
                                 @foreach ($atts as $att)
                                 <option value="{{$att->tourist_id}}"
                                     {{($info->tourist_id == $att->tourist_id?'selected':'')}}>{{$att->tourist_name}}
@@ -167,7 +220,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <input type="date" class="form-control round-form" name="date[]" value="{{$info->date}}">
+                            <input type="text" class="form-control round-form" name="date[]" id="date{{$count}}" value="{{$info->date}}" required autocomplete>
                         </div>
                     </div>
                     <div class="form-group">
@@ -177,7 +230,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <input type="time" class="form-control round-form" name="time[]" value="{{$info->time}}">
+                            <input type="time" class="form-control round-form" name="time[]" value="{{$info->time}}" required autocomplete>
                         </div>
                     </div>
                     <div class="form-group">
@@ -199,12 +252,12 @@
 </div>
 <script>
     $(document).ready(function(){
-        var i = {{count($infodetail)}};
+        var i = {{count($infodetail) + 1}};
         $('#add-more').click(function(){
             $('#form-line-trips').append("<div class=\"form-inline\">"+
                 "<div class=\"form-group\">"+
                 "<div class=\"col-sm-10\">"+
-                "<label class=\"col-sm-2 col-sm-2 control-label\">Attractions"+(i+1)+":</label>"+
+                "<label class=\"col-sm-2 col-sm-2 control-label\">Attractions"+(i)+":</label>"+
                 "</div>"+
                 "</div>"+
                 "<div class=\"form-group\">"+
@@ -218,17 +271,17 @@
                 "</div>"+
                 "<div class=\"form-group\">"+
                 "<div class=\"col-sm-10\">"+
-                "<label class=\"col-sm-2 col-sm-2 control-label\">Date"+(i+1)+":</label>"+
+                "<label class=\"col-sm-2 col-sm-2 control-label\">Date"+(i)+":</label>"+
                 "</div>"+
                 "</div>"+
                 "<div class=\"form-group\">"+
                 "<div class=\"col-sm-10\">"+
-                " <input type=\"date\" class=\"form-control round-form\" name=\"date[" + i + "]\">"+
+                " <input type=\"text\" class=\"form-control round-form\" name=\"date[" + i + "]\" id=\"date"+i+"\">"+
                 "</div>"+
                 "</div>"+
                 "<div class=\"form-group\">"+
                 "<div class=\"col-sm-10\">"+
-                "<label class=\"col-sm-2 col-sm-2 control-label\">Time"+(i+1)+":</label>"+
+                "<label class=\"col-sm-2 col-sm-2 control-label\">Time"+(i)+":</label>"+
                 "</div>"+
                 "</div>"+
                 "<div class=\"form-group\">"+
@@ -237,6 +290,12 @@
                 "</div>"+
                 "</div>")+
                 "</div>";
+                $('<script>')
+                .attr('type', 'text/javascript')
+                .text(
+                    "$('#start_date, #end_date').change(function(){if($('#start_date').val() == $('#end_date').val())setDate"+i+"();}); function setDate"+i+"(min=$('#start_date').val(),max=$('#end_date').val()){$('#date"+i+"').datetimepicker({format:'Y-m-d',timepicker:false,minDate:min,maxDate:max,defaultDate:min,value:min,scrollInput:false});} setDate"+i+"();"
+                )
+                .appendTo('head');
             i++;
         });
     });
