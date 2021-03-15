@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Admins;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
 class adminsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth','adminOnly']);
+        $this->middleware(['auth', 'adminOnly']);
     }
 
     public function index()
@@ -28,21 +26,30 @@ class adminsController extends Controller
     public function store(Request $request)
     {
         $chkusername = Admins::all();
-        foreach($chkusername as $chk){
-        if($request->username == $chk->username){
-            return redirect()->back()->with('fail','username นี้ไม่สามารถใช้ได้');
-        }else{
-        Admins::create([
-            'fname' => $request->fname,
-            'lname' => $request->lname,
-            'phone' =>  $request->phone,
-            'username' =>  $request->username,
-            'password' => bcrypt($request->password),
-            'admin_status' => "Enable"
-        ]);
+        foreach ($chkusername as $chk) {
+            $username[] = $chk->username;
         }
-        return redirect()->back()->with('success','ลงทะเบียน Admin สำเร็จ');
-    }
+        $count = count($username);
+        $check = 0;
+
+        for ($i = 0; $i < $count; $i++) {
+            if (strtolower($request->username)== strtolower($username[$i])) {
+                $check += 1;
+            }
+        }
+        if ($check == 1) {
+           return redirect()->back()->with('fail', 'username นี้ไม่สามารถใช้ได้');
+        } else {
+            Admins::create([
+                'fname' => $request->fname,
+                'lname' => $request->lname,
+                'phone' =>  $request->phone,
+                'username' =>  $request->username,
+                'password' => bcrypt($request->password),
+                'admin_status' => "Enable"
+            ]);
+            return redirect()->back()->with('success', 'ลงทะเบียน Admin สำเร็จ');
+        }
     }
 
     public function show($id)
