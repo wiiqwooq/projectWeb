@@ -85,8 +85,14 @@ class attractionsController extends Controller
     }
     public function destroy($id)
     {
-        Tourist_Attraction::find($id)->delete();
-        return redirect("/attractions");
+        $delete = Tourist_Attraction::find($id);
+
+        if($delete->tourist_status == "Available"){
+            $delete->delete();
+            return redirect()->back()->with('success','Deleted attraction.');
+        }else{
+            return redirect()->back()->with('fail','Can not delete this attraction.');
+        }
     }
 
     public function destroyImage($id)

@@ -14,7 +14,7 @@ class Users extends Model
         'fname',
         'lname',
         'phone',
-        'addreess',
+        'address',
         'username',
         'password',
         'user_status'

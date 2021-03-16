@@ -23,7 +23,7 @@ class tripsController extends Controller
     }
     public function create()
     {
-        $atts = Tourist_Attraction::all();
+        $atts= DB::table('tourist_attractions')->whereIn('tourist_status',['Available','Enable'])->get();
         $pro = Province::all();
         return view("Trips.create_trips", compact('atts', 'pro'));
     }
@@ -100,7 +100,12 @@ class tripsController extends Controller
 
     public function deleteTrip($id)
     {
-        Trips::find($id)->delete();
-        return back();
+        $delete = Trips::find($id);
+        if($delete->trips_status == "Available"){
+            $delete->delete();
+            return redirect()->back()->with('success','Deleted trip.');
+        }else{
+            return redirect()->back()->with('fail','Can not delete this trip.');
+        }
     }
 }

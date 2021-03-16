@@ -69,16 +69,33 @@
   dangerMode: true,
 }).then((willDelete) => {
   if (willDelete) {
-    swal("{{$atts->tourist_name}} is deleted.", {
-      icon: "success",
+    swal("Processing", {
+        icon: false,
+        buttons: false,
+        timer: 1000,
+    })
+    .then(()=>{
+        document.getElementById('form_{{$atts->tourist_id}}').submit();
     });
-    // .then(()=>{
-    //     document.getElementById('form_{{$atts->tourist_id}}').submit();
-    // });
   }
 });
     }
     @endforeach
+    @if (session('fail'))
+    swal({
+  title: "{{session('fail')}}",
+  icon: "error",
+  button: "OK",
+});
+    @endif
+
+    @if (session('success'))
+    swal({
+  title: "{{session('success')}}",
+  icon: "success",
+  button: "OK",
+});
+    @endif
 
 </script>
 @endsection
