@@ -43,7 +43,7 @@
                                 {{ csrf_field() }}
                                 @method('delete')
                                 <button type="button" class="btn btn-danger btn-xs"
-                                    onclick="delete_{{$atts->tourist_id}}()"><i class="fa fa-trash-o "></i></button>
+                                    onclick="delete_{{$atts->tourist_id}}()"><i class="fa fa-trash-o"></i></button>
                             </form>
                         </td>
                     </tr>

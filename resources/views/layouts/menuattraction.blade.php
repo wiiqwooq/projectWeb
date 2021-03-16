@@ -21,10 +21,6 @@
     <!-- Custom styles for this template -->
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/style-responsive.css')}}" rel="stylesheet">
-
-    <link rel="stylesheet" media="all" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/js/fileinput.min.js"/>
-    <link rel="stylesheet" media="all" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
-
     <script src="{{asset('assets/js/chart-master/Chart.js')}}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
@@ -65,7 +61,7 @@
                         <p class="centered"><a href="profile.html"><img src="{{asset('assets/img/ui-sam.jpg')}}"
                                     class="img-circle" width="60"></a></p>
                         <h5 class="centered">{{Auth::user()->fname}} {{Auth::user()->lname}}</h5>
-
+                        <p class="centered"><a href="{{route('admins.editpassword',['id' => Auth::user()->admin_id])}}">Edit Password</a></p>
                         <li class="mt">
                             <a href="/users">
                                 <i><svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-people"

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Admins;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class adminsController extends Controller
 {
@@ -69,6 +70,25 @@ class adminsController extends Controller
         $update->update($request->all());
 
         return redirect('/admins');
+    }
+    public function editPassword($id)
+    {
+        $admin = Admins::find($id);
+        return view('Admins.edit_password', compact('admin'));
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        $admin = Admins::find($id);
+
+        if (Hash::check($request->oldpassword, $admin->password)) {
+            $admin->update([
+                'password' => bcrypt($request->newpassword),
+            ]);
+            return redirect()->back()->with('success','Edited password.');
+        }else{
+            return redirect()->back()->with('fail','Old password is incorrect.');
+        }
     }
 
     public function destroy($id)
