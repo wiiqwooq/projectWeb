@@ -80,4 +80,7 @@
   'sarabun' => array(
     'normal' => $fontDir . '/sarabun_normal_e2d52e487586f9e40c0c11545790ca47',
   ),
+  'thsarabunnew' => array(
+    'normal' => $fontDir . '/thsarabunnew_normal_f6b5945b7078d35d3697716a3b795606',
+  ),
 ) ?>

@@ -33,6 +33,7 @@ Route::resource('users', 'usersController');
 
 Route::resource('trips', 'tripsController');
 Route::delete('/deletetrip/{id}', 'tripsController@deleteTrip')->name('trips.delete');
+Route::get('/findprovince', 'tripsController@findProvince')->name('trips.find');
 
 Route::resource('confirm', 'confirmsController');
 
@@ -46,3 +47,5 @@ Route::post('/reporttopSell/pdf', 'reportController@createTopTripPDF')->name('ex
 
 Route::get('/logout', 'Auth\LoginController@logout');
 Auth::routes();
+
+

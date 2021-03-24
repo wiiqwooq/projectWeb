@@ -3,20 +3,29 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/thsarabunnew.css" />
     <style>
         table {
-            font-family: arial, sans-serif;
+            font-family: 'THSarabunNew',sans-serif;
             border-collapse: collapse;
             width: 100%;
+            font-family: 'THSarabunNew',sans-serif;
         }
 
-        td,
+        td{
+            border: 1px solid black;
+            text-align: left;
+            padding: 8px;
+            font-family: 'THSarabunNew',sans-serif;
+            font-size: 14;
+        }
         th {
             border: 1px solid black;
             text-align: left;
             padding: 8px;
-            font-family: "Sarabun";
+            font-family: 'THSarabunNew',sans-serif;
+            font-size: 12;
+            font-weight: 300;
         }
 
         tr:nth-child(even) {
@@ -24,7 +33,7 @@
         }
 
         body {
-            font-family: "Sarabun";
+            font-family:'THSarabunNew',sans-serif;
         }
     </style>
 </head>
@@ -33,8 +42,9 @@
     @php
     $i=1;
     @endphp
+    <img src="{{ public_path('/images/logo.png') }}" style="width: 40; height: 40; display: inline">
     <center>
-        <h2>Top Trips Selling Report of {{$month}} {{$year}}</h2>
+        <h2 >Top Trips Selling Report of {{$month}} {{$year}}</h2>
     </center>
 
     <table style="boder:2px solid black;margin-left:auto;margin-right:auto;width:100%;">

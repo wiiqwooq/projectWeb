@@ -92,6 +92,16 @@ class tripsController extends Controller
         return redirect()->back();
     }
 
+    public function findProvince(Request $request){
+         if($request->ajax()){
+             $tourist = DB::table('tourist_attractions')
+                    ->where('province_id',$request->province_id)
+                    ->orderBy('tourist_id','desc')
+                    ->get();
+                    echo json_encode($tourist);
+         }
+    }
+
     public function destroy($trips)
     {
         Trips_detail::find($trips)->delete();
