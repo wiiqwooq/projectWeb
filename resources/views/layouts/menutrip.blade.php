@@ -152,7 +152,6 @@
             </aside>
         </div>
         <!--sidebar end-->
-        var i = 0;
         <section id="main-content">
             <section class="wrapper">
                 <script src="{{asset('assets/js/jquery.js')}}"></script>

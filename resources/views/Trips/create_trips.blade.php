@@ -59,13 +59,13 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Trips Name: </label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control round-form" name="trips_name" required autocomplete>
+                    <input type="text" class="form-control round-form" name="trips_name" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Province:</label>
                 <div class="col-sm-10">
-                    <select class="form-control round-form" name="province_id" required autocomplete>
+                    <select class="form-control round-form" name="province_id" id="province" required>
                         @foreach ($pro as $province)
                         <option value="{{$province->province_id}}">{{$province->province_name}}</option>
                         @endforeach
@@ -84,6 +84,7 @@
                     <input type="text" disabled class="form-control round-form" name="end_date" id="end_date" required>
                 </div>
             </div>
+
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Amount:</label>
                 <div class="col-sm-10">
@@ -107,12 +108,12 @@
                 <div class="form-inline">
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <label class="col-sm-2 col-sm-4 control-label">Attractions{{$count}}:</label>
+                            <label class="col-sm-2 col-sm-4 control-label">Attractions:</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <select class="form-control round-form" name="tourist_id[]" required autocomplete>
+                            <select class="form-control round-form tourist_dropdown" name="tourist_id[]" id="tourist" required>
                                 @foreach ($atts as $att)
                                 <option value="{{$att->tourist_id}}">{{$att->tourist_name}}</option>
                                 @endforeach
@@ -121,23 +122,23 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <label class="col-sm-2 col-sm-2 control-label">Date{{$count}}:</label>
+                            <label class="col-sm-2 col-sm-2 control-label">Date:</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10">
                             <input type="text" class="form-control round-form"
-                                name="date[]" required autocomplete id="date0" disabled>
+                                name="date[]" required id="date0" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <label class="col-sm-2 col-sm-2 control-label">Time{{$count}}:</label>
+                            <label class="col-sm-2 col-sm-2 control-label">Time:</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <input type="time" class="form-control round-form" name="time[]" required autocomplete>
+                            <input type="time" class="form-control round-form" name="time[]" required>
                         </div>
                     </div>
                 </div>
@@ -152,50 +153,83 @@
     $(document).ready(function(){
                     var i = 1;
                     $('#add-more').click(function(){
-                        $('#form-line-trips').append("<div class=\"form-inline\">"+
-                "<div class=\"form-group\">"+
-                "<div class=\"col-sm-10\">"+
-                "<label class=\"col-sm-2 col-sm-2 control-label\">Attractions"+(i+1)+":</label>"+
-                "</div>"+
-                "</div>"+
-                "<div class=\"form-group\">"+
-                "<div class=\"col-sm-10\">"+
-                "<select class=\"form-control round-form\" name=\"tourist_id[" + i + "] \">"+
-                "@foreach ($atts as $att)"+
-                "<option value=\"{{$att->tourist_id}}\">{{$att->tourist_name}}</option>"+
-                "@endforeach"+
-                "</select>"+
-                "</div>"+
-                "</div>"+
-                "<div class=\"form-group\">"+
-                "<div class=\"col-sm-10\">"+
-                "<label class=\"col-sm-2 col-sm-2 control-label\">Date"+(i+1)+":</label>"+
-                "</div>"+
-                "</div>"+
-                "<div class=\"form-group\">"+
-                "<div class=\"col-sm-10\">"+
-                " <input type=\"text\" class=\"form-control round-form\" name=\"date[" + i + "]\" id=\"date"+i+"\">"+
-                "</div>"+
-                "</div>"+
-                "<div class=\"form-group\">"+
-                "<div class=\"col-sm-10\">"+
-                "<label class=\"col-sm-2 col-sm-2 control-label\">Time"+(i+1)+":</label>"+
-                "</div>"+
-                "</div>"+
-                "<div class=\"form-group\">"+
-                "<div class=\"col-sm-10\">"+
-                " <input type=\"time\" class=\"form-control round-form\" name=\"time[" + i + "] \">"+
-                "</div>"+
-                "</div>"+
-                "</div>");
-                $('<script>')
-                .attr('type', 'text/javascript')
-                .text(
-                    "$('#start_date, #end_date').change(function(){if($('#start_date').val() == $('#end_date').val())setDate"+i+"();}); function setDate"+i+"(min=$('#start_date').val(),max=$('#end_date').val()){$('#date"+i+"').datetimepicker({format:'Y-m-d',timepicker:false,minDate:min,maxDate:max,defaultDate:min,value:min,scrollInput:false});} setDate"+i+"();"
-                )
-                .appendTo('head');
-                i++;
+
+                        $('#form-line-trips').append("<div class=\"form-inline\" id=\"tourist_"+i+"\">"+
+                            "<div class=\"form-group\">"+
+                            "<div class=\"col-sm-10\">"+
+                            "<label class=\"col-sm-2 col-sm-2 control-label\">Attractions:</label>"+
+                            "</div>"+
+                            "</div>"+
+                            "<div class=\"form-group\">"+
+                            "<div class=\"col-sm-10\">"+
+                            "<select class=\"form-control round-form tourist_dropdown\" name=\"tourist_id[" + i + "] \" required>"+
+                            "@foreach ($atts as $att)"+
+                            "<option value=\"{{$att->tourist_id}}\">{{$att->tourist_name}}</option>"+
+                            "@endforeach"+
+                            "</select>"+
+                            "</div>"+
+                            "</div>"+
+                            "<div class=\"form-group\">"+
+                            "<div class=\"col-sm-10\">"+
+                            "<label class=\"col-sm-2 col-sm-2 control-label\">Date:</label>"+
+                            "</div>"+
+                            "</div>"+
+                            "<div class=\"form-group\">"+
+                            "<div class=\"col-sm-10\">"+
+                            " <input type=\"text\" class=\"form-control round-form\" name=\"date[" + i + "]\" id=\"date"+i+"\" required>"+
+                            "</div>"+
+                            "</div>"+
+                            "<div class=\"form-group\">"+
+                            "<div class=\"col-sm-10\">"+
+                            "<label class=\"col-sm-2 col-sm-2 control-label\">Time:</label>"+
+                            "</div>"+
+                            "</div>"+
+                            "<div class=\"form-group\">"+
+                            "<div class=\"col-sm-10\">"+
+                            " <input type=\"time\" class=\"form-control round-form\" name=\"time[" + i + "] \" required>"+
+                            "</div>"+
+                            "</div>"+
+                            "<div class=\"form-group\">"+
+                            "<div class=\"col-sm-10\">"+
+                            "<button class=\"btn btn-warning btn-sm\" type=\"button\"onclick=\"$('#tourist_"+i+"').remove();i--;\">"+
+                            "<i class=\"fa fa-times\" ></i></button>"+
+                            "</div>"+
+                            "</div>"+
+                            "</div>");
+                        $('<script>').attr('type', 'text/javascript')
+                            .text(
+                                "$('#start_date, #end_date').change(function(){if($('#start_date').val() == $('#end_date').val())setDate"+i+"();}); function setDate"+i+"(min=$('#start_date').val(),max=$('#end_date').val()){$('#date"+i+"').datetimepicker({format:'Y-m-d',timepicker:false,minDate:min,maxDate:max,defaultDate:min,value:min,scrollInput:false});} setDate"+i+"();"
+                            ).appendTo('head');
+                        i++;
+                        updateTourist();
                     });
+                $('#province').change(function(){
+                    updateTourist();
                 });
+                updateTourist();
+                function updateTourist() {
+                    $.ajax({
+                        url:"{{route('trips.find')}}",
+                        method: "GET",
+                        data: {province_id:$('#province').val()},
+                        dataType:"JSON",
+                        success:function(data) {
+                            $(".tourist_dropdown").empty();
+                            if(Object.keys(data).length == 0) $(".tourist_dropdown").prop('disabled',true);
+                            else {
+                                $(".tourist_dropdown").prop('disabled',false);
+                                for(var i=0;i<Object.keys(data).length;i++) {
+                                    $(".tourist_dropdown").append(
+                                        $('<option></option>').attr("value",""+data[i].tourist_id).html(""+data[i].tourist_name)
+                                    );
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+
+
+
 </script>
 @endsection

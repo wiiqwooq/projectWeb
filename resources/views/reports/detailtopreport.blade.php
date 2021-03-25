@@ -48,7 +48,7 @@
     </center>
 
     <table style="boder:2px solid black;margin-left:auto;margin-right:auto;width:100%;">
-        <tr>
+        <tr class="w3-green">
             <th style="text-align:center">#</th>
             <th style="text-align:center">Trips Name</th>
             <th style="text-align:center">Amount</th>

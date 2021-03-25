@@ -69,10 +69,12 @@ class reportController extends Controller
             ->join('trips', 'booking_trips.trips_id', '=', 'trips.trips_id')
             ->whereMonth('selling_trips.c_date', $request->month)
             ->whereYear('selling_trips.c_date', $request->year)
-            ->select(DB::raw('trips.trips_name, count(trips.trips_id) as top_amount'))
+            ->select(DB::raw('trips.trips_name, SUM(booking_trips.total) as top_amount'))
             ->groupBy('trips.trips_name')
             ->orderBy('top_amount', 'desc')
             ->get();
+
+        //return $reportTop;
 
         $months = [
             'January', 'February', 'March', 'April', 'May', 'June',
@@ -116,7 +118,7 @@ class reportController extends Controller
                 ->join('trips', 'booking_trips.trips_id', '=', 'trips.trips_id')
                 ->whereMonth('selling_trips.c_date', $request->month)
                 ->whereYear('selling_trips.c_date', $request->year)
-                ->select(DB::raw('trips.trips_name,count(trips.trips_id) as top_amount'))
+                ->select(DB::raw('trips.trips_name,SUM(booking_trips.total) as top_amount'))
                 ->groupBy('trips.trips_name')
                 ->orderBy('top_amount', 'desc')
                 ->get();

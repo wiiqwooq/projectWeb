@@ -33,16 +33,21 @@ class tripsController extends Controller
         $trip = new Trips();
         $trip->fill($request->only($trip->getFillable()));
         $trip->save();
-
         $tourist = $request->tourist_id;
-        for ($i = 0; $i < count($tourist); $i++) {
+        foreach($tourist as $key => $value) {
             $detail = new Trips_Detail();
-            $detail->date = $request->date[$i];
-            $detail->time = $request->time[$i];
+            $detail->date = $request->date[$key];
+            $detail->time = $request->time[$key];
             $detail->trips_id = $trip->trips_id;
-            $detail->tourist_id = $request->tourist_id[$i];
+            $detail->tourist_id = $request->tourist_id[$key];
             $detail->save();
+
+            $updatestatus= Tourist_Attraction::findorFail($request->tourist_id[$key]);
+            $updatestatus->update([
+                'tourist_status' => 'Enable'
+            ]);
         }
+
         return back();
     }
 
@@ -68,7 +73,6 @@ class tripsController extends Controller
 
     public function update(Request $request, $id)
     {
-        //return $request;
         $update = Trips::findorFail($id);
         $update->update($request->all());
 
@@ -98,7 +102,8 @@ class tripsController extends Controller
                     ->where('province_id',$request->province_id)
                     ->orderBy('tourist_id','desc')
                     ->get();
-                    echo json_encode($tourist);
+
+            return response()->json($tourist);
          }
     }
 

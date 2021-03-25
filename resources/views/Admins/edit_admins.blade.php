@@ -82,6 +82,7 @@
 
 @section('editadmin')
 <script>
+     
     function checkEdit() {
         swal({
   title: "Are you sure?",
