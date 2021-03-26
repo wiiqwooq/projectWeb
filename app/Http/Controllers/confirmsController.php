@@ -7,7 +7,8 @@ use App\Confirmations;
 use App\Selling_trips;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Trips;
+use Symfony\Component\VarDumper\Caster\AmqpCaster;
 
 class confirmsController extends Controller
 {
@@ -49,11 +50,17 @@ class confirmsController extends Controller
         ]);
 
         $sell = Confirmations::join('booking_trips', 'confirmations.booking_id', '=', 'booking_trips.booking_id')
-            ->where('confirmations.confirm_id', $id)->first();
+                ->join('trips','booking_trips.trips_id','=','trips.trips_id')
+                ->where('confirmations.confirm_id', $id)->first();
 
         $update = Booking_trips::find($sell['booking_id']);
         $update->update([
             'Payment_status' => 'Complete'
+        ]);
+
+        $updateAmount = Trips::find($sell['trips_id']);
+        $updateAmount->update([
+            'amount' => $updateAmount->amount - $sell->total,
         ]);
 
         return redirect()->back();

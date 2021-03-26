@@ -38,8 +38,10 @@ class reportController extends Controller
     {
         $reportSell = Selling_trips::join('confirmations', 'selling_trips.confirm_id', '=', 'confirmations.confirm_id')
             ->join('booking_trips', 'confirmations.booking_id', '=', 'booking_trips.booking_id')
+            ->join('trips','booking_trips.trips_id','=','trips.trips_id')
             ->whereMonth('selling_trips.c_date', $request->month)
             ->whereYear('selling_trips.c_date', $request->year)
+            ->select('trips.trips_name','selling_trips.c_date','booking_trips.total_price')
             ->get();
 
         $sum = 0;
@@ -148,6 +150,7 @@ class reportController extends Controller
         if ($request->ajax()) {
             $reportSell = Selling_trips::join('confirmations', 'selling_trips.confirm_id', '=', 'confirmations.confirm_id')
                 ->join('booking_trips', 'confirmations.booking_id', '=', 'booking_trips.booking_id')
+                ->join('trips','booking_trips.trips_id','=','trips.trips_id')
                 ->whereMonth('selling_trips.c_date', $request->month)
                 ->whereYear('selling_trips.c_date', $request->year)
                 ->get();
@@ -156,7 +159,7 @@ class reportController extends Controller
             $output .= "<div class=row><div class=col-md-12><table class=table>";
             $output .= "<thead>
                             <tr>
-                                <th>selling_id</th>
+                                <th>Trips</th>
                                 <th>Date</th>
                                 <th>Price</th>
                             </tr>
@@ -165,7 +168,7 @@ class reportController extends Controller
                 $sum += $price['total_price'];
                 $output .= "
                             <tr>
-                                <td>" . $price->selling_id . "</td>
+                                <td>" . $price->trips_name . "</td>
                                 <td>" . $price->c_date . "</td>
                                 <td>" . $price->total_price . "</td>
                             </tr>

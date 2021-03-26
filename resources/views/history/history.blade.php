@@ -13,6 +13,7 @@
                     <tr>
                         <th>#</th>
                         <th>Admin</th>
+                        <th>Trips Name</th>
                         <th>Price</th>
                         <th>Date</th>
                     </tr>
@@ -22,6 +23,7 @@
                     <tr>
                         <td>{{$i}}</td>
                         <td>{{$his->fname}}</td>
+                        <td>{{$his->trips_name}}</td>
                         <td>{{$his->total_price}}</td>
                         <td>{{$his->c_date}}</td>
                     </tr>

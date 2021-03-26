@@ -349,14 +349,30 @@
   dangerMode: true,
 }).then((willDelete) => {
   if (willDelete) {
-    swal("{{$trips->trips_name}} is edited.", {
-      icon: "success",
+    swal("กำลังตรวจสอบ", {
+      icon: false,
+      buttons: false,
+      timer:1000,
     }).then(()=>{
         document.getElementById('editTrips').submit();
     });
   }
 });
 }
+@if (session('fail'))
+    swal({
+  title: "{{session('fail')}}",
+  icon: "error",
+  button: "OK",
+});
+@endif
+@if (session('success'))
+    swal({
+  title: "{{session('success')}}",
+  icon: "success",
+  button: "OK",
+});
+@endif
 
 @foreach ($infodetail as $info)
 function deleteTrips_{{$info->detail_id}}() {

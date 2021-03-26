@@ -64,19 +64,21 @@
     <table style="boder:2px solid black;margin-left:auto;margin-right:auto;width:100%;">
         <tr>
             <th style="text-align:center">#</th>
+            <th style="text-align:center">Trips</th>
             <th style="text-align:center">Date</th>
             <th style="text-align:center">Price</th>
         </tr>
         @foreach ($reportSell as $report)
         <tr>
             <td style="text-align:center">{{$i}}</td>
+            <td style="text-align:center;">{{$report->trips_name}}</td>
             <td style="text-align:center;">{{$report->c_date}}</td>
             <td style="text-align:center">{{$report->total_price}}</td>
         </tr>
         {{$i++}}
         @endforeach
         <tr>
-            <td style="text-align:center" colspan="2">Summary</td>
+            <td style="text-align:center" colspan="3">Summary</td>
             <td style="text-align:center">{{$sum}}</td>
         </tr>
     </table>

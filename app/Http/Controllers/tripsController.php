@@ -73,6 +73,9 @@ class tripsController extends Controller
 
     public function update(Request $request, $id)
     {
+        if ($request->tourist_id == null){
+            return redirect()->back()->with('fail','กรุณาเพิ่มสถานที่ท่องเที่ยว');
+        }else{
         $update = Trips::findorFail($id);
         $update->update($request->all());
 
@@ -93,7 +96,8 @@ class tripsController extends Controller
             }
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('success','แก้ไขสำเร็จ');
+        }
     }
 
     public function findProvince(Request $request){
