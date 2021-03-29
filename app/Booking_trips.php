@@ -18,4 +18,17 @@ class Booking_trips extends Model
         'user_id',
         'trips_id'
     ];
+
+    public function User()
+    {
+        return $this->belongsTo(App\Users::class);
+    }
+    public function Trips()
+    {
+        return $this->belongsTo(App\Trips::class);
+    }
+    public function Confirm()
+    {
+        return $this->hasOne(App\Confirmations::class);
+    }
 }

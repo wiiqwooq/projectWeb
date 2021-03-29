@@ -21,6 +21,14 @@ class Trips extends Model
     ];
     public function Detail()
     {
-        return $this->hasMany('App\Trips_Detail', 'trips_id', 'trips_id');
+        return $this->hasMany(App\Trips_Detail::class);
+    }
+    public function Booking_Trips()
+    {
+        return $this->hasMany(App\Booking_Trips::class);
+    }
+    public function Province_Trips()
+    {
+        return $this->belongsTo(App\Province::class);
     }
 }

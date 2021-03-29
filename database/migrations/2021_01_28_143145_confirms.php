@@ -14,11 +14,11 @@ class Confirms extends Migration
     public function up()
     {
         Schema::table('confirms', function (Blueprint $table) {
-            $table->bigIncrements('confirm_id');
+            $table->integer('confirm_id');
             $table->date('c_date',255);
-            $table->unsignedBigInteger('admin_id');
+            $table->integer('admin_id');
             $table->foreign('admin_id')->references('admin_id')->on('admins')->onDelete('cascade');
-            $table->unsignedBigInteger('selling_id');
+            $table->integer('selling_id');
             $table->foreign('selling_id')->references('selling_id')->on('selling_trips')->onDelete('cascade');
             $table->timestamps();
         });

@@ -19,4 +19,9 @@ class Users extends Model
         'password',
         'user_status'
     ];
+
+    public function Booking_Trips_User()
+    {
+        return $this->hasMany(App\Booking_Trips::class);
+    }
 }

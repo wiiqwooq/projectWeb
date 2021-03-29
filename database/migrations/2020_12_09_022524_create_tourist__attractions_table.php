@@ -18,7 +18,7 @@ class CreateTouristAttractionsTable extends Migration
             $table->integer("tourist_id");
             $table->String("tourist_name",255);
             $table->integer('province_id');
-            //$table->foreign('province_id')->references('province_id')->on('provinces')->onDelete('cascade');
+            $table->foreign('province_id')->references('province_id')->on('provinces')->onDelete('cascade');
             $table->String("tourist_status",40)->default("Available");
         });
     }

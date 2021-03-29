@@ -15,4 +15,13 @@ class Selling_trips extends Model
         'admin_id',
         'confirm_id',
     ];
+
+    public function Selling_Confirm()
+    {
+        return $this->belongsTo(App\Confirmations::class);
+    }
+    public function Admin_Confirm()
+    {
+        return $this->belongsTo(App\Admins::class);
+    }
 }

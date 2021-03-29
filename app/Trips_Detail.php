@@ -18,10 +18,10 @@ class Trips_Detail extends Model
     ];
     public function Trips()
     {
-        return $this->belongsTo('App\Trips', 'trips_id');
+        return $this->belongsTo('App\Trips', 'trips_id', 'trips_id');
     }
     public function Tourist()
     {
-        return $this->hasOne('App\Tourist_Attraction', 'tourist_id', 'tourist_id');
+        return $this->belongsTo('App\Tourist_Attraction', 'tourist_id', 'tourist_id');
     }
 }

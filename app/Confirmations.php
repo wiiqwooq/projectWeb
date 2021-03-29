@@ -16,4 +16,13 @@ class Confirmations extends Model
         'date',
         'booking_id'
     ];
+
+    public function Confirm_ฺBooking()
+    {
+        return $this->belongsTo(App\Booking_trips::class);
+    }
+    public function SellingConfirm()
+    {
+        return $this->hasOne(App\Selling_trips::class);
+    }
 }

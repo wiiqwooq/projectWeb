@@ -14,11 +14,11 @@ class SellingTrips extends Migration
     public function up()
     {
         Schema::table('selling_trips', function (Blueprint $table) {
-            $table->bigIncrements("selling_id");
+            $table->integer("selling_id");
             $table->String("account_number",20);
             $table->String("reciept",255);
             $table->date("date");
-            $table->unsignedBigInteger('booking_id');
+            $table->integer('booking_id');
             $table->foreign('booking_id')->references('booking_id')->on('booking_trips')->onDelete('cascade');
             $table->timestamps();
         });

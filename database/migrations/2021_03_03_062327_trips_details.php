@@ -31,6 +31,9 @@ class TripsDetails extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('trips_details ', function (Blueprint $table) {
+            $table->dropIfExists('trips_id');
+            $table->dropIfExists('tourist_id');
+        });
     }
 }

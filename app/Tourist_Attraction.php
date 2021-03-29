@@ -15,8 +15,16 @@ class Tourist_Attraction extends Model
         'province_id',
         'tourist_status',
     ];
+    public function Trips_Detail()
+    {
+        return $this->hasMany(App\Trips_Detail::class);
+    }
     public function Imageatts()
     {
-        return $this->hasMany('App\Image_Tourist_Attraction', 'tourist_id', 'tourist_id');
+        return $this->hasMany(App\Image_Tourist_Attraction::class);
+    }
+    public function Province_Tourist()
+    {
+        return $this->belongsTo(App\Province::class);
     }
 }

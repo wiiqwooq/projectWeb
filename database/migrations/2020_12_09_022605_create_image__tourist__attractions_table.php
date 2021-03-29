@@ -18,7 +18,7 @@ class CreateImageTouristAttractionsTable extends Migration
             $table->integer("image_id");
             $table->String("image_name",255);
             $table->integer('tourist_id');
-            //$table->foreign('tourist_id')->references('tourist_id')->on('tourist_attractions')->onDelete('cascade');
+            $table->foreign('tourist_id')->references('tourist_id')->on('tourist_attractions')->onDelete('cascade');
         });
     }
 

@@ -14,9 +14,15 @@ class CreateTripsTable extends Migration
     public function up()
     {
         Schema::create('trips', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('trip_name',255);
-            $table->string('location',255);
+            $table->integer('trips_id');
+            $table->string('trips_name',255);
+            $table->integer('province_id');
+            $table->foreign('province_id')->references('province_id')->on('provinces')->onDelete('cascade');
+            $table->date("start_date");
+            $table->date("end_date");
+            $table->integer("amount");
+            $table->integer("price");
+            $table->string('trips_status',40);
             $table->timestamps();
         });
     }

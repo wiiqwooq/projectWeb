@@ -36,4 +36,9 @@ class Admins extends Authenticatable
     {
         return $this->password;
     }
+
+    public function AdminSelling()
+    {
+        return $this->hasMany(App\Selling_trips::class);
+    }
 }
