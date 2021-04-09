@@ -41,7 +41,7 @@
                 <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
             </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>Take Me Travel</b></a>
+            <a class="logo"><b>Take Me Travel</b></a>
             <!--logo end-->
 
             <div class="top-menu">
@@ -62,7 +62,7 @@
                     <!-- sidebar menu start-->
                     <ul class="sidebar-menu" id="nav-accordion">
 
-                        <p class="centered"><a href="profile.html"><img src="{{asset('assets/img/ui-sam.jpg')}}"
+                        <p class="centered"><a><img src="{{asset('assets/img/ui-sam.jpg')}}"
                                     class="img-circle" width="60"></a></p>
                         <h5 class="centered">{{Auth::user()->fname}} {{Auth::user()->lname}}</h5>
                         <p class="centered"><a href="{{route('admins.editpassword',['id' => Auth::user()->admin_id])}}">Edit Password</a></p>

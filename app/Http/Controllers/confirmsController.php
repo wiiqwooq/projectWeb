@@ -59,9 +59,18 @@ class confirmsController extends Controller
         ]);
 
         $updateAmount = Trips::find($sell['trips_id']);
+
+        if($updateAmount->trips_status == "Available"){
         $updateAmount->update([
             'amount' => $updateAmount->amount - $sell->total,
+            'trips_status' => "Enable"
         ]);
+        }else{
+            $updateAmount->update([
+                'amount' => $updateAmount->amount - $sell->total,
+            ]);
+
+        }
 
         return redirect()->back();
     }

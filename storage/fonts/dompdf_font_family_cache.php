@@ -83,4 +83,10 @@
   'thsarabunnew' => array(
     'normal' => $fontDir . '/thsarabunnew_normal_f6b5945b7078d35d3697716a3b795606',
   ),
+  'glyphicons halflings' => array(
+    'normal' => $fontDir . '/glyphicons_halflings_normal_df31caafbfa62a5bbe5552e25e16b818',
+  ),
+  'fontawesome' => array(
+    'normal' => $fontDir . '/fontawesome_normal_a07c54af815ea54af1b5e5aa13cc5f8b',
+  ),
 ) ?>

@@ -3,47 +3,62 @@
 
 <head>
     <link rel="stylesheet" href="fonts/thsarabunnew.css" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    {{-- <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet"> --}}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style>
-        @font-face{
-            font-family: 'THSarabunNew',sans-serif;
+        @font-face {
+            font-family: 'THSarabunNew', sans-serif;
             font-style: normal;
             font-weight: normal;
 
         }
-        table {
-            font-family: "THSarabunNew";
+
+        #customers {
+            font-family: "THSarabunNew", sans-serif;
             border-collapse: collapse;
             width: 100%;
-            font-family: 'THSarabunNew',sans-serif;
-
+            font-family: "THSarabunNew", sans-serif;
         }
 
-        td {
-            border: 1px solid black;
-            text-align: left;
+        #customers th {
+            border: 1px solid #ddd;
             padding: 8px;
-            font-family: 'THSarabunNew',sans-serif;
-            font-size: 14;
+            font-family: "THSarabunNew", sans-serif;
+            font-size: 10;
         }
 
-        th {
-            border: 1px solid black;
-            text-align: left;
+        #customers td {
+            border-bottom: 1px solid #ddd;
             padding: 8px;
-            font-family: 'THSarabunNew',sans-serif;
-            font-size: 12;
-            font-weight: 300;
+            font-family: "THSarabunNew", sans-serif;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+            font-family: "THSarabunNew", sans-serif;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+            font-family: "THSarabunNew", sans-serif;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #68976a;
+            color: white;
+            font-family: "THSarabunNew", sans-serif;
         }
 
         tr:nth-child(even) {
             background-color: #dddddd;
-        }
-        body {
-            font-family: "THSarabunNew",sans-serif;;
+            font-family: "THSarabunNew", sans-serif;
         }
 
+        body {
+            font-family: "THSarabunNew", sans-serif;
+        }
     </style>
 
 </head>
@@ -52,16 +67,17 @@
     @php
     $i=1;
     @endphp
-    <img src="{{ public_path('/images/logo.png') }}" style="width: 40; height: 40; display: inline">
-
-    <h3>
     <center>
-        {{-- <img src="{{ public_path('/images/logo.png') }}" style="width: 60; height: 60; display: inline"> --}}
-        Selling Report of {{$month}} {{$year}}
+        <img src="{{ public_path('/images/logo.png') }}" style="width: 40; height: 40; display: inline">
     </center>
+    <br>
+    <hr>
+    <h3>
+        <center>
+            Selling Report of {{$month}} {{$year}}
+        </center>
     </h3>
-
-    <table style="boder:2px solid black;margin-left:auto;margin-right:auto;width:100%;">
+    <table id="customers">
         <tr>
             <th style="text-align:center">#</th>
             <th style="text-align:center">Trips</th>
@@ -82,6 +98,11 @@
             <td style="text-align:center">{{$sum}}</td>
         </tr>
     </table>
+    <br>
+    <hr>
+    <center>
+        <p> @ Take Me Travel Company </p>
+    </center>
 </body>
 
 </html>

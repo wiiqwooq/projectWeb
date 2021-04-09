@@ -40,12 +40,6 @@
                     @if ($atts->tourist_status == "Available")
                     <div class="radio">
                         <label>
-                            <input type="radio" name="tourist_status" value="Available" checked>
-                            Available
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
                             <input type="radio" name="tourist_status" value="Enable">
                             Enable
                         </label>
@@ -60,12 +54,6 @@
                     @if ($atts->tourist_status == "Enable")
                     <div class="radio">
                         <label>
-                            <input type="radio" name="tourist_status" value="Available">
-                            Available
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
                             <input type="radio" name="tourist_status" value="Enable" checked>
                             Enable
                         </label>
@@ -78,12 +66,6 @@
                     </div>
                     @endif
                     @if($atts->tourist_status == "Disable")
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="tourist_status" value="Available">
-                            Available
-                        </label>
-                    </div>
                     <div class="radio">
                         <label>
                             <input type="radio" name="tourist_status" value="Enable">
