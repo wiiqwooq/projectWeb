@@ -201,7 +201,7 @@
                                 "$('#start_date, #end_date').change(function(){if($('#start_date').val() == $('#end_date').val())setDate"+i+"();}); function setDate"+i+"(min=$('#start_date').val(),max=$('#end_date').val()){$('#date"+i+"').datetimepicker({format:'Y-m-d',timepicker:false,minDate:min,maxDate:max,defaultDate:min,value:min,scrollInput:false});} setDate"+i+"();"
                             ).appendTo('head');
                         i++;
-                        updateTourist();
+                        //updateTourist();
                     });
                 $('#province').change(function(){
                     updateTourist();

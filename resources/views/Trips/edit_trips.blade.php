@@ -292,7 +292,7 @@
                 )
                 .appendTo('head');
             i++;
-            updateTourist();
+            //updateTourist();
         });
 
         $('#province').change(function(){
