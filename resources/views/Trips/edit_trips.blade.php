@@ -87,12 +87,8 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Province:</label>
                 <div class="col-sm-10">
-                    <select class="form-control round-form" name="province_id" id="province" required>
-                        @foreach ($pro as $province)
-                        <option value="{{$province->province_id}}"
-                            {{($trips->province_id == $province->province_id?'selected':'')}}>
-                            {{$province->province_name}}</option>
-                        @endforeach
+                    <select class="form-control round-form" name="province_id" id="province" required disabled>
+                        <option value="{{$trips->province_id}}" selected>{{$trips->province_name}}</option>
                     </select>
                 </div>
             </div>
@@ -148,14 +144,14 @@
                 <label class="col-sm-2 col-sm-2 control-label">Start Date:</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control round-form" name="start_date" id="start_date"
-                        value="{{$trips->start_date}}" required autocomplete>
+                        value="{{$trips->start_date}}" disabled required autocomplete>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">End Date:</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control round-form" name="end_date" id="end_date"
-                        value="{{$trips->end_date}}" required autocomplete>
+                        value="{{$trips->end_date}}" disabled required autocomplete>
                 </div>
             </div>
             <div class="form-group">
@@ -240,6 +236,44 @@
     </div>
 </div>
 <script>
+    updateTourist();
+    function updateTourist(count = 0) {
+                    $.ajax({
+                        url:"{{route('trips.find')}}",
+                        method: "GET",
+                        data: {province_id:$('#province').val()},
+                        dataType:"JSON",
+                        indexValue: count,
+                        success:function(data) {
+                            console.log("Here");
+                            if(this.indexValue == 0) {
+                                $(".tourist_dropdown").empty();
+                                if(Object.keys(data).length == 0) $(".tourist_dropdown").prop('disabled',true);
+                                else {
+                                    $(".tourist_dropdown").prop('disabled',false);
+                                    for(var i=0;i<Object.keys(data).length;i++) {
+                                        $(".tourist_dropdown").append(
+                                            $('<option></option>').attr("value",""+data[i].tourist_id).html(""+data[i].tourist_name)
+                                        );
+                                    }
+                                }
+                            }
+                            else {
+                                $("#tourist_id"+this.indexValue).empty();
+                                if(Object.keys(data).length == 0) $("#tourist_id"+this.indexValue).prop('disabled',true);
+                                else {
+                                    $(".tourist_dropdown").prop('disabled',false);
+                                    for(var i=0;i<Object.keys(data).length;i++) {
+                                        $("#tourist_id"+this.indexValue).append(
+                                            $('<option></option>').attr("value",""+data[i].tourist_id).html(""+data[i].tourist_name)
+                                        );
+                                    }
+                                }
+                            }
+                        }
+
+                    });
+                }
     $(document).ready(function(){
         var i = {{count($infodetail) + 1}};
         $('#add-more').click(function(){
@@ -251,10 +285,7 @@
                 "</div>"+
                 "<div class=\"form-group\">"+
                 "<div class=\"col-sm-10\">"+
-                "<select class=\"form-control round-form tourist_dropdown\" name=\"tourist_id[] \">"+
-                "@foreach ($atts as $att)"+
-                "<option value=\"{{$att->tourist_id}}\">{{$att->tourist_name}}</option>"+
-                "@endforeach"+
+                "<select class=\"form-control round-form tourist_dropdown\" name=\"tourist_id["+i+"] \">"+
                 "</select>"+
                 "</div>"+
                 "</div>"+
@@ -288,38 +319,16 @@
                 $('<script>')
                 .attr('type', 'text/javascript')
                 .text(
-                    "$('#start_date, #end_date').change(function(){if($('#start_date').val() == $('#end_date').val())setDate"+i+"();}); function setDate"+i+"(min=$('#start_date').val(),max=$('#end_date').val()){$('#date"+i+"').datetimepicker({format:'Y-m-d',timepicker:false,minDate:min,maxDate:max,defaultDate:min,value:min,scrollInput:false});} setDate"+i+"();"
+                    "$('#start_date, #end_date').change(function(){if($('#start_date').val() == $('#end_date').val())setDate"+i+"();}); function setDate"+i+"(min=$('#start_date').val(),max=$('#end_date').val()){$('#date"+i+"').datetimepicker({format:'Y-m-d',timepicker:false,minDate:min,maxDate:max,defaultDate:min,value:min,scrollInput:false});} setDate"+i+"(); updateTourist("+i+");"
                 )
                 .appendTo('head');
+                updateTourist();
             i++;
-            //updateTourist();
         });
 
         $('#province').change(function(){
                     updateTourist();
                 });
-
-                updateTourist();
-                function updateTourist() {
-                    $.ajax({
-                        url:"{{route('trips.find')}}",
-                        method: "GET",
-                        data: {province_id:$('#province').val()},
-                        dataType:"JSON",
-                        success:function(data) {
-                            $(".tourist_dropdown").empty();
-                            if(Object.keys(data).length == 0) $(".tourist_dropdown").prop('disabled',true);
-                            else {
-                                $(".tourist_dropdown").prop('disabled',false);
-                                for(var i=0;i<Object.keys(data).length;i++) {
-                                    $(".tourist_dropdown").append(
-                                        $('<option></option>').attr("value",""+data[i].tourist_id).html(""+data[i].tourist_name)
-                                    );
-                                }
-                            }
-                        }
-                    });
-                }
     });
 
     function checkEdit() {

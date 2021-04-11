@@ -61,7 +61,7 @@
 
                         <p class="centered"><a><img src="{{asset('assets/img/ui-sam.jpg')}}"
                                     class="img-circle" width="60"></a></p>
-                        <h5 class="centered">{{Auth::user()->fname}} {{Auth::user()->lname}}</h5>
+                                    <h5 class="centered"><a href="{{route('admins.edit',[Auth::user()->admin_id])}}">{{Auth::user()->fname}} {{Auth::user()->lname}}</a></h5>
                         <p class="centered"><a href="{{route('admins.editpassword',['id' => Auth::user()->admin_id])}}">Edit Password</a></p>
                         <li class="mt">
                             <a href="/users">

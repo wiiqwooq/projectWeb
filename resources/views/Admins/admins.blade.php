@@ -21,7 +21,6 @@
                         <th>Phone</th>
                         <th>Username</th>
                         <th>Status</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,10 +32,10 @@
                         <td>{{$admin->phone}}</td>
                         <td>{{$admin->username}}</td>
                         <td>{{$admin->admin_status}}</td>
-                        <td>
+                        {{-- <td>
                             <a href="{{route('admins.edit',[$admin->admin_id])}}"><button
                                     class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
-                        </td>
+                        </td> --}}
                         {{-- <td>
                             <form id="form_{{$admin->admin_id}}" class="form-inline" method="post"
                                 action="{{route('admins.destroy',[$admin->admin_id])}}" enctype="multipart/form-data">

@@ -61,14 +61,19 @@ class tripsController extends Controller
 
     public function edit($id)
     {
-        $trips = Trips::find($id);
-        $atts = Tourist_Attraction::all();
-        $pro = Province::all();
+        $trips = Trips::join('provinces','trips.province_id','=','provinces.province_id')
+                ->where('trips.trips_id',$id)->first();
+
         $infodetail = Trips_Detail::join('trips', 'trips.trips_id', '=', 'trips_details.trips_id')
             ->join('tourist_attractions', 'trips_details.tourist_id', '=', 'tourist_attractions.tourist_id')
             ->where('trips_details.trips_id', $id)->orderBy('trips_details.date', 'ASC')->get();
 
-        return view('Trips.edit_trips', compact('trips', 'atts', 'pro', 'infodetail'));
+        $atts= DB::table('tourist_attractions')
+            ->whereIn('tourist_status',['Available','Enable'])
+            ->where('province_id',$infodetail[0]['province_id'])
+            ->get();
+
+        return view('Trips.edit_trips', compact('trips', 'atts','infodetail'));
     }
 
     public function update(Request $request, $id)

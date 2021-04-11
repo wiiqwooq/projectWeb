@@ -6,7 +6,7 @@
         $('#start_date').datetimepicker({
             format:'Y-m-d',
             timepicker:false,
-            minDate:'+1970-01-01',
+            minDate:'+1970-01-06',
             scrollInput:false
         });
         $('#start_date').change(function(){
@@ -106,6 +106,20 @@
                         attractions</button>
                 </div>
                 <div class="form-inline">
+                    {{-- <div class="form-group">
+                        <div class="col-sm-10">
+                            <label class="col-sm-2 col-sm-4 control-label">Province:</label>
+                        </div>
+                    </div> --}}
+                    {{-- <div class="form-group">
+                        <div class="col-sm-10">
+                            <select class="form-control round-form" id="province_att" required>
+                                @foreach ($pro as $province)
+                                <option value="{{$province->province_id}}">{{$province->province_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div> --}}
                     <div class="form-group">
                         <div class="col-sm-10">
                             <label class="col-sm-2 col-sm-4 control-label">Attractions:</label>
@@ -150,6 +164,43 @@
     </div>
 </div>
 <script>
+    function updateTourist(count = 0) {
+                    $.ajax({
+                        url:"{{route('trips.find')}}",
+                        method: "GET",
+                        data: {province_id:$('#province').val()},
+                        dataType:"JSON",
+                        indexValue: count,
+                        success:function(data) {
+                            console.log("Here");
+                            if(this.indexValue == 0) {
+                                $(".tourist_dropdown").empty();
+                                if(Object.keys(data).length == 0) $(".tourist_dropdown").prop('disabled',true);
+                                else {
+                                    $(".tourist_dropdown").prop('disabled',false);
+                                    for(var i=0;i<Object.keys(data).length;i++) {
+                                        $(".tourist_dropdown").append(
+                                            $('<option></option>').attr("value",""+data[i].tourist_id).html(""+data[i].tourist_name)
+                                        );
+                                    }
+                                }
+                            }
+                            else {
+                                $("#tourist_id"+this.indexValue).empty();
+                                if(Object.keys(data).length == 0) $("#tourist_id"+this.indexValue).prop('disabled',true);
+                                else {
+                                    $(".tourist_dropdown").prop('disabled',false);
+                                    for(var i=0;i<Object.keys(data).length;i++) {
+                                        $("#tourist_id"+this.indexValue).append(
+                                            $('<option></option>').attr("value",""+data[i].tourist_id).html(""+data[i].tourist_name)
+                                        );
+                                    }
+                                }
+                            }
+                        }
+
+                    });
+                }
     $(document).ready(function(){
                     var i = 1;
                     $('#add-more').click(function(){
@@ -162,10 +213,7 @@
                             "</div>"+
                             "<div class=\"form-group\">"+
                             "<div class=\"col-sm-10\">"+
-                            "<select class=\"form-control round-form tourist_dropdown\" name=\"tourist_id[" + i + "] \" required>"+
-                            "@foreach ($atts as $att)"+
-                            "<option value=\"{{$att->tourist_id}}\">{{$att->tourist_name}}</option>"+
-                            "@endforeach"+
+                            "<select class=\"form-control round-form tourist_dropdown\" name=\"tourist_id[" + i + "] \" id=\"tourist_id"+i+"\" required>"+
                             "</select>"+
                             "</div>"+
                             "</div>"+
@@ -198,35 +246,18 @@
                             "</div>");
                         $('<script>').attr('type', 'text/javascript')
                             .text(
-                                "$('#start_date, #end_date').change(function(){if($('#start_date').val() == $('#end_date').val())setDate"+i+"();}); function setDate"+i+"(min=$('#start_date').val(),max=$('#end_date').val()){$('#date"+i+"').datetimepicker({format:'Y-m-d',timepicker:false,minDate:min,maxDate:max,defaultDate:min,value:min,scrollInput:false});} setDate"+i+"();"
+                                "$('#start_date, #end_date').change(function(){if($('#start_date').val() == $('#end_date').val())setDate"+i+"();}); function setDate"+i+"(min=$('#start_date').val(),max=$('#end_date').val()){$('#date"+i+"').datetimepicker({format:'Y-m-d',timepicker:false,minDate:min,maxDate:max,defaultDate:min,value:min,scrollInput:false});} setDate"+i+"(); updateTourist("+i+");"
                             ).appendTo('head');
                         i++;
-                        //updateTourist();
                     });
                 $('#province').change(function(){
                     updateTourist();
                 });
+
                 updateTourist();
-                function updateTourist() {
-                    $.ajax({
-                        url:"{{route('trips.find')}}",
-                        method: "GET",
-                        data: {province_id:$('#province').val()},
-                        dataType:"JSON",
-                        success:function(data) {
-                            $(".tourist_dropdown").empty();
-                            if(Object.keys(data).length == 0) $(".tourist_dropdown").prop('disabled',true);
-                            else {
-                                $(".tourist_dropdown").prop('disabled',false);
-                                for(var i=0;i<Object.keys(data).length;i++) {
-                                    $(".tourist_dropdown").append(
-                                        $('<option></option>').attr("value",""+data[i].tourist_id).html(""+data[i].tourist_name)
-                                    );
-                                }
-                            }
-                        }
-                    });
-                }
+
+
+
             });
 
 

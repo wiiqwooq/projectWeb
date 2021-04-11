@@ -25,7 +25,7 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Position:</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="province_id">
+                    <select class="form-control round-form" name="province_id" disabled>
                         @foreach ($pro as $position)
                         <option value="{{$position->province_id}}"
                             {{($atts->province_id == $position->province_id?'selected':'')}}>

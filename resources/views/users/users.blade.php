@@ -34,15 +34,6 @@
                                 <button class="btn btn-primary btn-xs" type="submit"><i class="fa fa-pencil"></i></button>
                             </a>
                         </td>
-                        <td>
-                            <form id="deleteUser_{{$user->user_id}}"
-                                action="{{route('users.destroy',[$user->user_id])}}" class="form-inline" method="post">
-                                @method('DELETE')
-                                @csrf
-                                <button type="button" class="btn btn-danger btn-xs"
-                                    onclick="delete_{{$user->user_id}}()"><i class="fa fa-trash-o"></i></button>
-                            </form>
-                        </td>
                     </tr>
                     <?php $i++; ?>
                     @endforeach
