@@ -98,7 +98,7 @@
                         <tbody>
                             @foreach ($imgs as $img)
                             <tr>
-                                <td><img src="/images/{{$img->image_name}}" width="50" height="50"></td>
+                                <td><a href="/images/{{$img->image_name}}" data-fancybox="image"><img src="/images/{{$img->image_name}}" width="50" height="50"></a></td>
                                 <td>
                                     <button form="deleteForm" onclick="deleteImage_{{$img->image_id}}()"
                                         class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>

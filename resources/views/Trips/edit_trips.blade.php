@@ -157,14 +157,14 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Amount:</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control round-form" name="amount" value="{{$trips->amount}}"
+                    <input type="number" class="form-control round-form" name="amount" min="1" value="{{$trips->amount}}"
                         required autocomplete>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Price:</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control round-form" name="price" value="{{$trips->price}}" required
+                    <input type="number" class="form-control round-form" name="price" max="0" value="{{$trips->price}}" required
                         autocomplete>
                 </div>
             </div>

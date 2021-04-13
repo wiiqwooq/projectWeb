@@ -88,13 +88,13 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Amount:</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control round-form" name="amount" required autocomplete>
+                    <input type="number" class="form-control round-form" name="amount" min="1" required autocomplete>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Price:</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control round-form" name="price" required autocomplete>
+                    <input type="number" class="form-control round-form" name="price" min="0" required autocomplete>
                 </div>
             </div>
             @php
@@ -106,20 +106,6 @@
                         attractions</button>
                 </div>
                 <div class="form-inline">
-                    {{-- <div class="form-group">
-                        <div class="col-sm-10">
-                            <label class="col-sm-2 col-sm-4 control-label">Province:</label>
-                        </div>
-                    </div> --}}
-                    {{-- <div class="form-group">
-                        <div class="col-sm-10">
-                            <select class="form-control round-form" id="province_att" required>
-                                @foreach ($pro as $province)
-                                <option value="{{$province->province_id}}">{{$province->province_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div> --}}
                     <div class="form-group">
                         <div class="col-sm-10">
                             <label class="col-sm-2 col-sm-4 control-label">Attractions:</label>
