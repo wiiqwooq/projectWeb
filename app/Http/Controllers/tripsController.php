@@ -48,7 +48,7 @@ class tripsController extends Controller
             ]);
         }
 
-        return back();
+        return redirect()->back()->with('addsuccess','Add Data Trips Success.');
     }
 
     public function show($id)
@@ -61,12 +61,16 @@ class tripsController extends Controller
 
     public function edit($id)
     {
+        if(Trips::find($id) == null){
+            return redirect('/trips')->with('null', 'Do not have this value.');
+        }
         $trips = Trips::join('provinces','trips.province_id','=','provinces.province_id')
                 ->where('trips.trips_id',$id)->first();
 
         $infodetail = Trips_Detail::join('trips', 'trips.trips_id', '=', 'trips_details.trips_id')
             ->join('tourist_attractions', 'trips_details.tourist_id', '=', 'tourist_attractions.tourist_id')
             ->where('trips_details.trips_id', $id)->orderBy('trips_details.date', 'ASC')->get();
+
 
         $atts= DB::table('tourist_attractions')
             ->whereIn('tourist_status',['Available','Enable'])
@@ -78,8 +82,18 @@ class tripsController extends Controller
 
     public function update(Request $request, $id)
     {
-        if ($request->tourist_id == null){
-            return redirect()->back()->with('fail','กรุณาเพิ่มสถานที่ท่องเที่ยว');
+       //return $request;
+        if(Trips::find($id) == null){
+            return redirect('/trips')->with('null', 'Incorect value.');
+        }
+
+        for ($j = 0; $j < count($request->tourist_id); $j++) {
+            if($request['detail_id'][$j]== null || $request['tourist_id'][$j]== null || $request['time'][$j] == null || $request['date'][$j]== null)
+                return redirect()->back()->with('fail','Incorect data.');
+        }
+
+        if ($request->amount == null || $request->amount <= 0|| $request->price == null || $request->price < 0){
+            return redirect()->back()->with('fail','Incorect data.');
         }else{
         $update = Trips::findorFail($id);
         $update->update($request->all());
@@ -101,7 +115,7 @@ class tripsController extends Controller
             }
         }
 
-        return redirect()->back()->with('success','แก้ไขสำเร็จ');
+        return redirect()->back()->with('success','Update data trip success.');
         }
     }
 
@@ -116,20 +130,14 @@ class tripsController extends Controller
          }
     }
 
-    public function destroy($trips)
-    {
-        Trips_detail::find($trips)->delete();
-        return back();
-    }
-
     public function deleteTrip($id)
     {
         $delete = Trips::find($id);
         if($delete->trips_status == "Available"){
             $delete->delete();
-            return redirect()->back()->with('success','Deleted trip.');
+            return redirect()->back()->with('success','Delete trip Success.');
         }else{
-            return redirect()->back()->with('fail','Can not delete this trip.');
+            return redirect()->back()->with('fail','Cannot delete this trip.');
         }
     }
 }

@@ -81,7 +81,7 @@
 })
 .then((willDelete) => {
   if (willDelete) {
-    swal("Processing...",{
+    swal("Processing",{
       icon: false,
       buttons: false,
       timer: 1000,
@@ -104,6 +104,14 @@
     swal({
   title: "{{session('success')}}",
   icon: "success",
+  button: "OK",
+});
+    @endif
+
+    @if (session('null'))
+    swal({
+  title: "{{session('null')}}",
+  icon: "warning",
   button: "OK",
 });
     @endif

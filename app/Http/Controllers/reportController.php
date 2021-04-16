@@ -74,9 +74,9 @@ class reportController extends Controller
             ->select(DB::raw('trips.trips_name, SUM(booking_trips.total) as top_amount'))
             ->groupBy('trips.trips_name')
             ->orderBy('top_amount', 'desc')
+            //->paginate(5),
+            ->take(5)
             ->get();
-
-        //return $reportTop;
 
         $months = [
             'January', 'February', 'March', 'April', 'May', 'June',
@@ -123,6 +123,8 @@ class reportController extends Controller
                 ->select(DB::raw('trips.trips_name,SUM(booking_trips.total) as top_amount'))
                 ->groupBy('trips.trips_name')
                 ->orderBy('top_amount', 'desc')
+                //->paginate(5),
+                ->take(5)
                 ->get();
             $output = "";
             $output .= "<div class=row><div class=col-md-12><table class=table>";

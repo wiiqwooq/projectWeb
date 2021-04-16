@@ -95,6 +95,14 @@
   icon: "success",
   button: "OK",
 });
+@endif
+
+@if (session('null'))
+    swal({
+  title: "{{session('null')}}",
+  icon: "warning",
+  button: "OK",
+});
     @endif
 
 </script>

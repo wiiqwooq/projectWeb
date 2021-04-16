@@ -59,13 +59,13 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Trips Name: </label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control round-form" name="trips_name" required>
+                    <input type="text" class="form-control round-form" name="trips_name" oninvalid="this.setCustomValidity('Please fill in the correct information.')" oninput="this.setCustomValidity('')" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Province:</label>
                 <div class="col-sm-10">
-                    <select class="form-control round-form" name="province_id" id="province" required>
+                    <select class="form-control round-form" name="province_id" id="province" oninvalid="this.setCustomValidity('Please fill in the correct information.')" oninput="this.setCustomValidity('')" required>
                         @foreach ($pro as $province)
                         <option value="{{$province->province_id}}">{{$province->province_name}}</option>
                         @endforeach
@@ -75,26 +75,26 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Start Date:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control round-form" name="start_date" id="start_date" required>
+                    <input type="text" class="form-control round-form" name="start_date" id="start_date" oninvalid="this.setCustomValidity('Please fill in the correct information.')" onchange="this.setCustomValidity('')" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">End Date:</label>
                 <div class="col-sm-10">
-                    <input type="text" disabled class="form-control round-form" name="end_date" id="end_date" required>
+                    <input type="text" disabled class="form-control round-form" name="end_date" id="end_date" oninvalid="this.setCustomValidity('Please fill in the correct information.')" onchange="this.setCustomValidity('')" required>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Amount:</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control round-form" name="amount" min="1" required autocomplete>
+                    <input type="number" class="form-control round-form" name="amount" min="1" oninvalid="this.setCustomValidity('Please fill in the correct information.')" oninput="this.setCustomValidity('')" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Price:</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control round-form" name="price" min="0" required autocomplete>
+                    <input type="number" class="form-control round-form" name="price" min="0" oninvalid="this.setCustomValidity('Please fill in the correct information.')" oninput="this.setCustomValidity('')" required>
                 </div>
             </div>
             @php
@@ -245,8 +245,16 @@
 
 
             });
-
-
-
+</script>
+@endsection
+@section('deletetrip')
+<script>
+@if (session('addsuccess'))
+    swal({
+  title: "{{session('addsuccess')}}",
+  icon: "success",
+  button: "OK",
+});
+    @endif
 </script>
 @endsection

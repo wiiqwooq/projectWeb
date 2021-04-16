@@ -98,7 +98,8 @@
                         <tbody>
                             @foreach ($imgs as $img)
                             <tr>
-                                <td><a href="/images/{{$img->image_name}}" data-fancybox="image"><img src="/images/{{$img->image_name}}" width="50" height="50"></a></td>
+                                <td><a href="/images/{{$img->image_name}}" data-fancybox="image"><img
+                                            src="/images/{{$img->image_name}}" width="50" height="50"></a></td>
                                 <td>
                                     <button form="deleteForm" onclick="deleteImage_{{$img->image_id}}()"
                                         class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
@@ -136,8 +137,10 @@
   dangerMode: true,
 }).then((willDelete) => {
   if (willDelete) {
-    swal("{{$atts->tourist_name}} is edited.", {
-      icon: "success",
+    swal("Processing", {
+        icon: false,
+        buttons: false,
+        timer:1000,
     }).then(()=>{
         document.getElementById('editAttraction').submit();
     });
@@ -164,6 +167,22 @@ function deleteImage_{{$img->image_id}}() {
 });
 }
 @endforeach
+
+@if (session('fail'))
+    swal({
+  title: "{{session('fail')}}",
+  icon: "error",
+  button: "OK",
+});
+@endif
+@if (session('success'))
+    swal({
+  title: "{{session('success')}}",
+  icon: "success",
+  button: "OK",
+});
+@endif
+
 </script>
 
 @endsection

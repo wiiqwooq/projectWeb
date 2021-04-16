@@ -82,7 +82,7 @@
 
 @section('editadmin')
 <script>
-     
+
     function checkEdit() {
         swal({
   title: "Are you sure?",
@@ -92,16 +92,31 @@
   dangerMode: true,
 }).then((willDelete) => {
   if (willDelete) {
-    swal("{{$admin->fname}} {{$admin->lname}} is edited.", {
-      icon: "success",
-      buttons: false,
-      timer: 2000,
+    swal("Processing", {
+        icon: false,
+        buttons: false,
+        timer:1000,
     }).then(()=>{
         document.getElementById('editAdmin').submit();
     });
   }
 });
 }
+
+@if (session('fail'))
+    swal({
+  title: "{{session('fail')}}",
+  icon: "error",
+  button: "OK",
+});
+@endif
+@if (session('success'))
+    swal({
+  title: "{{session('success')}}",
+  icon: "success",
+  button: "OK",
+});
+@endif
 
 </script>
 @endsection

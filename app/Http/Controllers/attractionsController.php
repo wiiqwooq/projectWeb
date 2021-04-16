@@ -13,13 +13,13 @@ class attractionsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth','adminOnly']);
+        $this->middleware(['auth', 'adminOnly']);
     }
 
     public function index()
     {
         $att = Tourist_Attraction::join('provinces', 'tourist_attractions.province_id', '=', 'provinces.province_id')
-            ->orderBy('tourist_attractions.tourist_id','DESC')->get();
+            ->orderBy('tourist_attractions.tourist_id', 'DESC')->get();
         return view('Attractions.attractions', compact('att'));
     }
 
@@ -46,27 +46,36 @@ class attractionsController extends Controller
                 $img->save();
             }
         }
-        return back();
+        return redirect()->back()->with('addsuccess','Add Data Tourist Attraction Success.');
     }
 
     public function show($id)
     {
-        // Image_Tourist_Attraction::find($id)->delete();
-        // return back();
+        //
 
     }
 
     public function edit($id)
     {
-        $pro = Province::all();
         $atts = Tourist_Attraction::find($id);
+        if ($atts == null) {
+            return redirect('/attractions')->with('null', 'Do not have this value.');
+        }
+        $pro = Province::all();
         $imgs = DB::select('select * from image_tourist_attractions where tourist_id = :tourist_id', ['tourist_id' => $id]);
         return view('Attractions.edit_attraction', compact('atts', 'imgs', 'pro'));
     }
 
     public function update(Request $request, $id)
     {
-        $update = Tourist_Attraction::findorFail($id);
+
+        $update = Tourist_Attraction::find($id);
+        if($update == null){
+            return redirect('/attractions')->with('null', 'Do not have this value.');
+        }
+        if ($request->tourist_name == null){
+            return redirect()->back()->with('fail','Incorect data.');
+        }else{
         $update->update($request->all());
 
         if ($file = $request->file('image_name')) {
@@ -79,25 +88,35 @@ class attractionsController extends Controller
                 $img->save();
             }
         }
+    }
 
 
-        return redirect()->back();
+        return redirect()->back()->with('success','Update Data Tourist Attraction Success.');
     }
     public function destroy($id)
     {
         $delete = Tourist_Attraction::find($id);
 
-        if($delete->tourist_status == "Available"){
+        if($delete == null){
+            return redirect('/attractions')->with('null', 'Do not have this value.');
+        }
+
+        if ($delete->tourist_status == "Available") {
             $delete->delete();
-            return redirect()->back()->with('success','Deleted attraction.');
-        }else{
-            return redirect()->back()->with('fail','Can not delete this attraction.');
+            return redirect()->back()->with('success', 'Deleted tourist attraction success.');
+        } else {
+            return redirect()->back()->with('fail', 'Cannot delete this attraction.');
         }
     }
 
     public function destroyImage($id)
     {
-        Image_Tourist_Attraction::find($id)->delete();
+        Image_Tourist_Attraction::find($id);
+        if(Image_Tourist_Attraction::find($id) == null){
+            return redirect('/attractions')->with('null', 'Do not have this value.');
+        }else{
+            Image_Tourist_Attraction::find($id)->delete();
+        }
         return back();
     }
 }

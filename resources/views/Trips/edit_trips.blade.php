@@ -164,7 +164,7 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Price:</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control round-form" name="price" max="0" value="{{$trips->price}}" required
+                    <input type="number" class="form-control round-form" name="price" min="0" value="{{$trips->price}}" required
                         autocomplete>
                 </div>
             </div>
@@ -219,12 +219,7 @@
                                 required autocomplete>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <button class="btn btn-theme04 btn-sm" type="button"
-                                onclick="deleteTrips_{{$info->detail_id}}()"><i class="fa fa-trash-o "></i></button>
-                        </div>
-                    </div>
+
                 </div>
                 <?php $count++; ?>
                 @endforeach
@@ -285,7 +280,7 @@
                 "</div>"+
                 "<div class=\"form-group\">"+
                 "<div class=\"col-sm-10\">"+
-                "<select class=\"form-control round-form tourist_dropdown\" name=\"tourist_id["+i+"] \">"+
+                "<select class=\"form-control round-form tourist_dropdown\" name=\"tourist_id[] \">"+
                 "</select>"+
                 "</div>"+
                 "</div>"+
@@ -340,7 +335,7 @@
   dangerMode: true,
 }).then((willDelete) => {
   if (willDelete) {
-    swal("กำลังตรวจสอบ", {
+    swal("Processing", {
       icon: false,
       buttons: false,
       timer:1000,
@@ -364,30 +359,5 @@
   button: "OK",
 });
 @endif
-
-@foreach ($infodetail as $info)
-function deleteTrips_{{$info->detail_id}}() {
-        swal({
-  title: "Are you sure?",
-  text: "Do you would like to delete this attraction ?",
-  icon: "warning",
-  buttons: true,
-  dangerMode: true,
-}).then((willDelete) => {
-  if (willDelete) {
-    swal("Attraction is deleted.", {
-      icon: "success",
-    }).then(()=>{
-        document.getElementById('delete_{{$info->detail_id}}').submit();
-    });
-  }
-});
-}
-@endforeach
-
-
-
-
-
 </script>
 @endsection

@@ -17,31 +17,31 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">First Name:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control round-form" name="fname" required>
+                    <input type="text" class="form-control round-form" name="fname" oninvalid="this.setCustomValidity('Please fill in the correct information.')" oninput="this.setCustomValidity('')" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Last Name:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control round-form" name="lname" required>
+                    <input type="text" class="form-control round-form" name="lname" oninvalid="this.setCustomValidity('Please fill in the correct information.')" oninput="this.setCustomValidity('')" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Username:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control round-form" name="username"required>
+                    <input type="text" class="form-control round-form" name="username" oninvalid="this.setCustomValidity('Please fill in the correct information.')" oninput="this.setCustomValidity('')" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Password:</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control round-form" name="password" required>
+                    <input type="password" class="form-control round-form" name="password" oninvalid="this.setCustomValidity('Please fill in the correct information.')" oninput="this.setCustomValidity('')" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Phone:</label>
                 <div class="col-sm-10">
-                    <input type="tel" class="form-control round-form" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" placeholder="0812345678" required>
+                    <input type="tel" class="form-control round-form" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" placeholder="0812345678" oninvalid="this.setCustomValidity('Please fill in the correct information.')" oninput="this.setCustomValidity('')" required>
                 </div>
             </div>
             <center>
@@ -57,7 +57,7 @@
     swal({
   title: "{{session('fail')}}",
   icon: "error",
-  text: "กรุณาเปลี่ยน username",
+  text: "Please use new username.",
   button: "OK",
 });
     @endif

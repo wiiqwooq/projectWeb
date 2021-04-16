@@ -62,10 +62,15 @@
                     <!-- sidebar menu start-->
                     <ul class="sidebar-menu" id="nav-accordion">
 
-                        <p class="centered"><a><img src="{{asset('assets/img/ui-sam.jpg')}}"
-                                    class="img-circle" width="60"></a></p>
-                                    <h5 class="centered"><a href="{{route('admins.edit',[Auth::user()->admin_id])}}">{{Auth::user()->fname}} {{Auth::user()->lname}}</a></h5>
-                        <p class="centered"><a href="{{route('admins.editpassword',['id' => Auth::user()->admin_id])}}">Edit Password</a></p>
+                        <p class="centered"><a><img src="{{asset('assets/img/ui-sam.jpg')}}" class="img-circle"
+                                    width="60"></a></p>
+                        <h5 class="centered"><a
+                                href="{{route('admins.edit',[Auth::user()->admin_id])}}">{{Auth::user()->fname}}
+                                {{Auth::user()->lname}}
+                            </a></h5>
+                        <p class="centered"><a
+                                href="{{route('admins.editpassword',['id' => Auth::user()->admin_id])}}">Edit Password
+                            </a></p>
                         <li class="mt">
                             <a href="/users">
                                 <i><svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-people"
@@ -174,6 +179,6 @@
         <script type="text/javascript" src="{{asset('assets/js/gritter/js/jquery.gritter.js')}}"></script>
         <script type="text/javascript" src="{{asset('assets/js/gritter-conf.js')}}"></script>
         @yield('manageconfirm')
-    </body>
+</body>
 
 </html>

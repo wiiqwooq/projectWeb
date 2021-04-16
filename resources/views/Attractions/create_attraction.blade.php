@@ -17,14 +17,14 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Tourist Name: </label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control round-form" name="tourist_name" required autocomplete>
+                    <input type="text" class="form-control round-form" name="tourist_name" oninvalid="this.setCustomValidity('Please fill in the correct information.')" oninput="this.setCustomValidity('')" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Position:</label>
                 <div class="col-sm-10">
 
-                    <select class="form-control round-form" name="province_id" required autocomplete>
+                    <select class="form-control round-form" name="province_id" oninvalid="this.setCustomValidity('Please fill in the correct information.')" oninput="this.setCustomValidity('')" required>
                         @foreach ($pro as $province)
                         <option value="{{$province->province_id}}">{{$province->province_name}}</option>
                         @endforeach
@@ -35,7 +35,7 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-2 control-label">Image:</label>
                 <div class="col-sm-10">
-                    <input type="file" class="form-control round-form" name="image_name[]" multiple required autocomplete>
+                    <input type="file" class="form-control round-form" name="image_name[]" multiple  required>
                 </div>
             </div>
 
@@ -45,4 +45,16 @@
         </form>
     </div>
 </div>
+@endsection
+@section('deletetourist')
+
+<script>
+@if (session('addsuccess'))
+    swal({
+  title: "{{session('addsuccess')}}",
+  icon: "success",
+  button: "OK",
+});
+    @endif
+</script>
 @endsection

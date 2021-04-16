@@ -39,7 +39,7 @@ class adminsController extends Controller
             }
         }
         if ($check == 1) {
-           return redirect()->back()->with('fail', 'username นี้ไม่สามารถใช้ได้');
+           return redirect()->back()->with('fail', 'Cannot use this username.');
         } else {
             Admins::create([
                 'fname' => $request->fname,
@@ -49,7 +49,7 @@ class adminsController extends Controller
                 'password' => bcrypt($request->password),
                 'admin_status' => "Enable"
             ]);
-            return redirect()->back()->with('success', 'ลงทะเบียน Admin สำเร็จ');
+            return redirect()->back()->with('success', 'Success register.');
         }
     }
 
@@ -61,25 +61,43 @@ class adminsController extends Controller
     public function edit($id)
     {
         $admin = Admins::find($id);
+        if($admin == null){
+            return redirect('/admins')->with('null', 'Do not have this value.');
+        }
         return view('Admins.edit_admins', compact('admin'));
     }
 
     public function update(Request $request, $id)
     {
-        $update = Admins::findorFail($id);
-        $update->update($request->all());
+        $update = Admins::find($id);
+        if($update == null){
+            return redirect('/admins')->with('null', 'Do not have this value.');
+        }
+        
+        if($request->fname == null || $request->lname == null || $request->phone == null){
+            return redirect()->back()->with('fail','Incorect data.');
 
-        return redirect('/admins');
+        }else{
+        $update->update($request->all());
+        return redirect()->back()->with('success','Edit data admin success.');
+        }
     }
     public function editPassword($id)
     {
+
         $admin = Admins::find($id);
+        if($admin == null){
+            return redirect('/admins')->with('null', 'Do not have this value.');
+        }
         return view('Admins.edit_password', compact('admin'));
     }
 
     public function updatePassword(Request $request, $id)
     {
         $admin = Admins::find($id);
+        if($admin == null){
+            return redirect('/admins')->with('null', 'Do not have this value.');
+        }
 
         if (Hash::check($request->oldpassword, $admin->password)) {
             $admin->update([
@@ -93,6 +111,9 @@ class adminsController extends Controller
 
     public function destroy($id)
     {
+        if(Admins::find($id) == null){
+            return redirect('/admins')->with('null', 'Do not have this value.');
+        }
         Admins::find($id)->delete();
         return redirect('/admins');
     }
