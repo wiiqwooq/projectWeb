@@ -100,6 +100,7 @@ $j=1;
         $('#month, #year').change(function(){
             getReport();
         });
+        
         function gettopReport() {
             var month = $('#month1').val();
             var year = $('#year1').val();

@@ -20,7 +20,7 @@
                     <tr>
                         <th>#</th>
                         <th>Tourist Name</th>
-                        <th>Position</th>
+                        <th>Province</th>
                         <th>Tourist_Status</th>
                         <th></th>
                     </tr>

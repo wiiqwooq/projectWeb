@@ -58,9 +58,11 @@ class attractionsController extends Controller
     public function edit($id)
     {
         $atts = Tourist_Attraction::find($id);
+
         if ($atts == null) {
             return redirect('/attractions')->with('null', 'Do not have this value.');
         }
+
         $pro = Province::all();
         $imgs = DB::select('select * from image_tourist_attractions where tourist_id = :tourist_id', ['tourist_id' => $id]);
         return view('Attractions.edit_attraction', compact('atts', 'imgs', 'pro'));
@@ -70,9 +72,11 @@ class attractionsController extends Controller
     {
 
         $update = Tourist_Attraction::find($id);
+
         if($update == null){
             return redirect('/attractions')->with('null', 'Do not have this value.');
         }
+        
         if ($request->tourist_name == null){
             return redirect()->back()->with('fail','Incorect data.');
         }else{

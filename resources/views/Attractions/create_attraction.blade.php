@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Position:</label>
+                <label class="col-sm-2 col-sm-2 control-label">Province:</label>
                 <div class="col-sm-10">
 
                     <select class="form-control round-form" name="province_id" oninvalid="this.setCustomValidity('Please fill in the correct information.')" oninput="this.setCustomValidity('')" required>
